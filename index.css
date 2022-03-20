@@ -81,11 +81,15 @@
 
 
 .show#alert{
-    margin-top: 30px;
-    padding: 50px;
-    height: 100% !important;
+    position: absolute;
+    z-index: 100;
+    margin-left: 37vw;
+    margin-top: 30vh;
+    padding: 10px 30px;
     overflow: hidden;
-    background-color: antiquewhite;
+    font-size: 1.5em;
+    color: aliceblue;
+    background-color: rgba(206, 51, 23, 0.616);
     transition: 400ms height linear;
 }
 

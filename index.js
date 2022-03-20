@@ -17,7 +17,7 @@ function showAlert(name) {
     let doc = document.querySelector('#alert');
     doc.classList.add("show");
     doc.textContent = `${name} has been Delete`;
-    setTimeout(disapperAlert,5000);
+    setTimeout(disapperAlert,2000);
 }
 
 //Get Local Storage 

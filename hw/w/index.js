@@ -33,10 +33,14 @@ Block.prototype.alloff =function(){
     });
 }
 
-this.block = blockNum.map( (d,i)=>{
-    name:d.name
-})
-
+this.block = blockNum.map( (d,i)=>({
+    name:d.name,
+    el:$(s.selector),
+    audio:this.getAudio(d.pitch)
+}))
+Block.prototype.getAudio=(pitch)=>{
+    return new Audio(``)
+}
 
 
 

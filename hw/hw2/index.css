@@ -87,11 +87,16 @@ html{
     background-color: aliceblue;
     box-shadow: 0 0 15px rgb(157, 236, 190);
     border: 1px white solid;
-    transform: rotateY(360deg);
+    transform: rotateY(0deg);
+    transition: background-color 0.8s;
+    transition: transform 0.8s;
 }
 
 .card.back{
     transform: rotateY(180deg);
+    background-color: rgb(132, 181, 223);
+    transition: background-color 0.8s;
+    transition: transform 0.8s;
 }
 
 

@@ -1,0 +1,105 @@
+.row{
+    display: flex;
+}
+.start .row-c{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    padding-top: 3px;
+}
+.start{
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    margin-top: 50vh;
+    padding: 80px 40px 10px 40px;
+    text-align: center;
+    background-color: pink;
+    z-index: 99;
+}
+.start.hide{
+    display: none;
+}
+
+.start-btn{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 90px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    border: 0px;
+    background-color: rgb(16, 248, 237);
+    cursor: pointer;
+    transition: background-color 0.8s;
+}
+.start-btn:hover{
+    background-color: rgb(182, 245, 242);
+    transition: background-color 0.8s;
+}
+.input,.input:active{
+    outline: none;    
+    background-color: pink;
+    border: none;
+    width: 140px;
+    font-size: 1.2em;
+}
+.underline{
+    content: "";
+    display: block;
+    position: relative;
+    width: 140px;
+    height: 2px;
+    background-color: gray;
+}
+.row>span{
+    margin-left: 30px;
+    font-size: 1.2em;
+}
+html{
+    background-color: rgba(0, 0, 0, 0.651);
+    margin: 0px;
+    padding: 5px;
+}
+.playground{
+    display: block;
+    content: "";
+    margin: auto;
+    padding: 10px;
+    width: max-content;
+    height: max-content;
+    transition: width 0.8s;
+    transition: height 0.8s;
+    border: 0.5px solid gray;
+    border-radius: 10px;
+}
+
+.playground .card{
+    display: flex;
+    width: 75px;
+    height: 100px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: aliceblue;
+    box-shadow: 0 0 15px rgb(157, 236, 190);
+    border: 1px white solid;
+    transform: rotateY(360deg);
+}
+
+.card.back{
+    transform: rotateY(180deg);
+}
+
+
+
+
+
+
+
+
+
+

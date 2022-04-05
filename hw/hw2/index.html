@@ -8,17 +8,27 @@
 
 <body>
 
-    <form class="start hide">
-
+    <form class="start">
+        
+        
+        <div style="margin-top: 10px;">選擇難度</div>
         <div class="row">
-
-            <span>數量 : </span>
-            <div class="row-c">
-                <input type="text" class="input" placeholder="    請輸入數量">
-                <div class="underline"></div>
-            </div>
-
+            <label>難度 : </label>
+            <input type="range" class="range-hard" min="0" max="4" value="0 ">
+            <span class="range-hard">1</span>
         </div>
+
+
+        
+        
+        <div style="margin-top: 20px;">選擇卡牌數量</div>
+        <div class="row">
+            <label>數量 : </label>
+            <input type="range" class="range-num" min="4" max="7" value="4">
+            <span class="range-num">1</span>
+        </div>
+
+
 
         <div class="row">
             <input type="submit" class="start-btn" value="Start">
@@ -29,65 +39,65 @@
     <div class="playground">
         <div class="row">
             <div class="card">
-                1                
+
             </div>
             <div class="card">
-                2                
+                2
             </div>
             <div class="card">
-                3                
+                3
             </div>
             <div class="card">
-                4               
+                4
             </div>
             <div class="card">
-                5                
+                5
             </div>
             <div class="card">
-                6                
+                6
             </div>
             <div class="card">
-                7                
+                7
             </div>
 
         </div>
 
         <div class="row">
             <div class="card">
-                2                    
+                2
             </div>
         </div>
 
         <div class="row">
             <div class="card">
-                3                
+                3
             </div>
         </div>
 
         <div class="row">
             <div class="card">
-                4                
+                4
             </div>
         </div>
 
         <div class="row">
             <div class="card">
-                5                
+                5
             </div>
         </div>
 
         <div class="row">
             <div class="card">
-                6                
+                6
             </div>
         </div>
-                
+
         <div class="row">
             <div class="card">
-                7                
+                7
             </div>
         </div>
-        
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"

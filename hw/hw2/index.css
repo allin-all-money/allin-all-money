@@ -1,20 +1,16 @@
 .row{
     display: flex;
 }
-.start .row-c{
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    padding-top: 3px;
-}
+
 .start{
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
+    margin-left: 39%;
     width: 300px;
     margin-top: 50vh;
-    padding: 80px 40px 10px 40px;
+    padding: 40px 40px 10px 40px;
     text-align: center;
     background-color: pink;
+    border-radius: 10px;
     z-index: 99;
 }
 .start.hide{
@@ -38,23 +34,9 @@
     background-color: rgb(182, 245, 242);
     transition: background-color 0.8s;
 }
-.input,.input:active{
-    outline: none;    
-    background-color: pink;
-    border: none;
-    width: 140px;
-    font-size: 1.2em;
-}
-.underline{
-    content: "";
-    display: block;
-    position: relative;
-    width: 140px;
-    height: 2px;
-    background-color: gray;
-}
-.row>span{
+.row>label{
     margin-left: 30px;
+    margin-right: 10px;
     font-size: 1.2em;
 }
 html{
@@ -75,7 +57,8 @@ html{
     border-radius: 10px;
 }
 
-.playground .card{
+
+.card{
     display: flex;
     width: 75px;
     height: 100px;
@@ -88,15 +71,14 @@ html{
     box-shadow: 0 0 15px rgb(157, 236, 190);
     border: 1px white solid;
     transform: rotateY(0deg);
-    transition: background-color 0.8s;
-    transition: transform 0.8s;
+    transition: transform 0.8s,background-color 0.8s;
 }
 
 .card.back{
     transform: rotateY(180deg);
     background-color: rgb(132, 181, 223);
-    transition: background-color 0.8s;
-    transition: transform 0.8s;
+    transition: transform 0.8s,background-color 0.8s;
+
 }
 
 

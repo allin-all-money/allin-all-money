@@ -4,71 +4,105 @@ let blockData = [
     { selector: ".row:nth-child(1)>.block:nth-child(2)", name: "3" },
     { selector: ".row:nth-child(2)>.block:nth-child(2)", name: "4" },
 ]
-
-function Point(x = 0, y = 0) {
-    this.x = x;
-    this.y = y;
-
-}
-function color(r=0,g=0,b=0){
-    this.r = r;
-    this.g = g;
-    this.b = b;
-}
-function Card() {
-    this.point = new Point();
-    this.pair = 0;
-    this.color = new color();
-
-}
-function setCard(point = new Point(), pair = 0, color = new color()) {
-
-}
+let cardSet=[];
 
 
+class Point {
+    constructor(x = 0, y = 0) {
+        this.x = x;
+        this.y = y;
 
-
-
-
-
-
-
-let Block = function (blockNum) {
-    this.On = false;
-    this.block = blockNum.map((data, index) => ({
-        name: data.name,
-        el: $(data.selector)
-    }))
-}
-Block.prototype.on = function (num) {
-    let block = this.block.find(data => data.name == num)
-    if (block) {
-        block.el.addClass('active');
-        setTimeout(() => {
-            block.el.removeClass('active');
-        }, 800)
     }
 }
-Block.prototype.allon = function () {
-    this.On = true;
-    this.block.forEach(block => {
-        block.el.addClass('active');
-    });
+class Color {
+    constructor(r = 0, g = 0, b = 0) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
 }
-Block.prototype.alloff = function () {
-    this.On = false;
-    this.block.forEach(block => {
-        block.el.removeClass('active');
-    });
+class Card {
+    constructor(point = new Point(), pair = 0, color = new Color()) {
+        this.point = point;
+        this.pair = pair;
+        this.color = color;
+
+    }
 }
 
-this.block = blockNum.map((d, i) => ({
-    name: d.name,
-    el: $(s.selector),
-    audio: this.getAudio(d.pitch)
-}))
-Block.prototype.getAudio = (pitch) => {
-    return new Audio(``)
+function Init(hard = 0, num = 4) {
+    cardSet = new Array(num*num);
+    let index=0;
+    for(let i = 0 ; i < num ; i++){
+        for( let j = 0 ; j < num ; j ++){
+            cardSet[index]=new Card(new Point(i+1,j+1));
+            index++;
+        }
+    }
+    console.log(cardSet)
+}
+
+
+let rangeH = document.querySelector('input.range-hard');
+let rangeN = document.querySelector('input.range-num');
+let startBtn = document.querySelector('form');
+document.addEventListener('DOMContentLoaded', e => {
+
+    let hard = ["簡單", "普通", "困難", "艱難", "鬼畜"]
+    let h = document.querySelector('span.range-hard');
+    let n = document.querySelector('span.range-num');
+
+    n.textContent = rangeN.value;
+    h.textContent = hard[rangeH.value];
+    rangeH.addEventListener("input", e => {
+        h.textContent = hard[rangeH.value];
+    });
+    rangeN.addEventListener("input", e => {
+        n.textContent = e.target.value;
+    });
+    startBtn.addEventListener('submit', e => {
+        e.preventDefault();
+        //startBtn.classList.add('hide');
+        Init(rangeH.value, rangeN.value);
+    });
+
+});
+
+
+
+
+class Block {
+    constructor(blockNum) {
+        this.On = false;
+        this.block = blockNum.map((data, index) => ({
+            name: data.name,
+            el: $(data.selector)
+        }));
+    }
+    on(num) {
+        let block = this.block.find(data => data.name == num);
+        if (block) {
+            block.el.addClass('active');
+            setTimeout(() => {
+                block.el.removeClass('active');
+            }, 800);
+        }
+    }
+    allon() {
+        this.On = true;
+        this.block.forEach(block => {
+            block.el.addClass('active');
+        });
+    }
+    alloff() {
+        this.On = false;
+        this.block.forEach(block => {
+            block.el.removeClass('active');
+        });
+    }
+    getAudio(pitch) {
+        return new Audio(``);
+    }
 }
 
 

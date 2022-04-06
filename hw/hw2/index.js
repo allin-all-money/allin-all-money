@@ -4,14 +4,26 @@ let blockData = [
     { selector: ".row:nth-child(1)>.block:nth-child(2)", name: "3" },
     { selector: ".row:nth-child(2)>.block:nth-child(2)", name: "4" },
 ]
-let cardSet=[];
-
+let gamePass = 0;
+let cardSet = [];
+let cardSeq = [];
+let colorSet = [];
+let cardPair = [];
+let playGround = document.querySelector('.playground');
 
 class Point {
     constructor(x = 0, y = 0) {
-        this.x = x;
-        this.y = y;
-
+        this.x = parseInt(x);
+        this.y = parseInt(y);
+    }
+    compare(point = new Point()) {
+        if (this.x == point.x && this.y == point.y) {
+            return true;
+        }
+        return false;
+    }
+    show() {
+        console.log(`(${this.x},${this.y})`);
     }
 }
 class Color {
@@ -26,20 +38,164 @@ class Card {
         this.point = point;
         this.pair = pair;
         this.color = color;
-
+    }
+    front() {
+        let select = `.row:nth-child(${this.point.x})>.card:nth-child(${this.point.y})`;
+        console.log(document.querySelector(select));
+    }
+    obverse() {
+        let select = `.row:nth-child(${this.point.x})>.card:nth-child(${this.point.y})`;
+        console.log(document.querySelector(select));
+    }
+    showPoint() {
+        console.log(this.point.x, this.point.y);
     }
 }
 
-function Init(hard = 0, num = 4) {
-    cardSet = new Array(num*num);
-    let index=0;
-    for(let i = 0 ; i < num ; i++){
-        for( let j = 0 ; j < num ; j ++){
-            cardSet[index]=new Card(new Point(i+1,j+1));
-            index++;
+class Game {
+    constructor(level = 1, cardNum = 4) {
+        this.level = level;
+        this.cardNum = cardNum;
+        this.tempP = [];
+
+    }
+    Init() {
+
+        colorSet = [];
+        cardSeq = [];
+        cardSet = new Array(this.cardNum * this.cardNum);
+        let index = 0;
+        for (let j = 1; j <= (this.cardNum * this.cardNum) / 2; j++) {
+            let r, g, b;
+            r = parseInt(Math.random() * 1000 % 255);
+            g = parseInt(Math.random() * 1000 % 255);
+            b = parseInt(Math.random() * 1000 % 255);
+            for (let i = 0; i < 2; i++) {
+                cardSeq.push(j);
+                colorSet.push(new Color(r, g, b));
+            }
+        }
+        swap(cardSeq, colorSet);
+        for (let i = 0; i < this.cardNum; i++) {
+            for (let j = 0; j < this.cardNum; j++) {
+                cardSet[index] = new Card(new Point(j + 1, i + 1), cardSeq[index], colorSet[index]);
+                index++;
+            }
+        }
+
+        this.start();
+        this.front();
+    }
+
+    start() {
+        playGround.innerHTML = "";
+        let card = "";
+        let cardQuery;
+        let index = 0;
+        for (let y = 1; y <= this.cardNum; y++) {
+            card += `<div class="row">
+            `;
+            for (let x = 1; x <= this.cardNum; x++) {
+                card += `<div class="card back" style="background-color:rgb(${cardSet[index].color.r},${cardSet[index].color.g},${cardSet[index].color.b})" data-pair = false data-x=${x} data-y=${y}>
+                ${cardSet[index].pair}
+                </div>
+                `;
+                index++;
+            }
+            card += `</div>`;
+        }
+        playGround.insertAdjacentHTML("beforeend", card);
+        cardQuery = document.querySelectorAll('.card');
+        for (let i = 0; i < cardQuery.length; i++) {
+            cardQuery[i].addEventListener('click', e => {
+
+                let count = 0;
+                cardQuery[i].classList.add("back");
+                let point = new Point(cardQuery[i].dataset.x, cardQuery[i].dataset.y);
+                for (let i = 0; i < cardSet.length; i++) {
+
+                    if (point.compare(cardSet[i].point)) {
+                        cardQuery[i].style.backgroundColor = `rgb(${cardSet[i].color.r},${cardSet[i].color.g},${cardSet[i].color.b})`
+                        cardPair.push(cardSet[i].pair);
+                        cardQuery[i].dataset.pair = true;
+
+                        if( this.check(count) == 10 ){
+                            
+                        }
+
+
+
+                    }
+
+                }
+
+            });
         }
     }
-    console.log(cardSet)
+
+    check(index) {
+
+        if (cardPair.length != 2) {
+            index++;
+            return index;
+        }
+
+        if (cardPair[0] == cardPair[1]) {
+            gamePass++;
+            console.log("Ok");
+        }
+        else {
+            let b = document.querySelectorAll('.back')
+            setTimeout(() => {
+                for (let i = 0; i < b.length; i++) {
+                    b[i].classList.remove("back");
+                    b[i].style.backgroundColor = "aliceblue";
+                }
+            }, 1000);
+            console.log("fail");
+            this.tempP = []
+            cardPair = [];
+            index = 0;
+            return 10;
+        }
+
+        if (gamePass == (this.cardNum * this.cardNum) / 2) {
+            console.log("All pass");
+            gamePass = 0;
+        }
+
+        this.tempP = []
+        cardPair = [];
+        index = 0;
+        return index;
+    }
+    front() {
+        let b = document.querySelectorAll('.back');
+        setTimeout(() => {
+            for (let i = 0; i < b.length; i++) {
+                b[i].classList.remove("back");
+                b[i].style.backgroundColor = "aliceblue";
+            }
+            cardPair = [];
+        }, 1000);
+    }
+}
+
+
+function swap(pair = [], color = []) {
+    let len = pair.length;
+    let a = 0, b = 0;
+    for (let i = 0; i < len; i++) {
+        let temp;
+        a = parseInt(Math.random() * 100 % len);
+        b = parseInt(Math.random() * 100 % len);
+        temp = pair[b];
+        pair[b] = pair[a];
+        pair[a] = temp;
+        temp = color[b];
+        color[b] = color[a];
+        color[a] = temp;
+    }
 }
 
 
@@ -48,22 +204,23 @@ let rangeN = document.querySelector('input.range-num');
 let startBtn = document.querySelector('form');
 document.addEventListener('DOMContentLoaded', e => {
 
-    let hard = ["簡單", "普通", "困難", "艱難", "鬼畜"]
-    let h = document.querySelector('span.range-hard');
+    //let hard = ["簡單", "普通", "困難", "艱難", "鬼畜"]
+    //let h = document.querySelector('span.range-hard');
+    //h.textContent = hard[rangeH.value];
+    //rangeH.addEventListener("input", e => {
+    //    h.textContent = hard[rangeH.value];
+    //});
     let n = document.querySelector('span.range-num');
 
     n.textContent = rangeN.value;
-    h.textContent = hard[rangeH.value];
-    rangeH.addEventListener("input", e => {
-        h.textContent = hard[rangeH.value];
-    });
     rangeN.addEventListener("input", e => {
         n.textContent = e.target.value;
     });
     startBtn.addEventListener('submit', e => {
         e.preventDefault();
-        //startBtn.classList.add('hide');
-        Init(rangeH.value, rangeN.value);
+        let game = new Game(1, rangeN.value);
+        game.Init();
+        startBtn.classList.add('hide');
     });
 
 });
@@ -104,11 +261,5 @@ class Block {
         return new Audio(``);
     }
 }
-
-
-
-
-let b = new Block(blockData);
-
 
 

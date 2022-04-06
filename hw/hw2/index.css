@@ -51,6 +51,8 @@ html{
     padding: 10px;
     width: max-content;
     height: max-content;
+    min-width: 300px;
+    min-height: 200px;
     transition: width 0.8s;
     transition: height 0.8s;
     border: 0.5px solid gray;
@@ -71,12 +73,15 @@ html{
     box-shadow: 0 0 15px rgb(157, 236, 190);
     border: 1px white solid;
     transform: rotateY(0deg);
-    transition: transform 0.8s,background-color 0.8s;
+    transition: transform 0.8s,background-color 0.8s,box-shadow 0.5s;
 }
-
+.card:hover{
+    box-shadow: 0 0 15px rgb(210, 84, 221);
+    transition: transform 0.8s,background-color 0.8s,box-shadow 0.5s;
+}
 .card.back{
     transform: rotateY(180deg);
-    background-color: rgb(132, 181, 223);
+    background-color: rgb(111, 181, 223);
     transition: transform 0.8s,background-color 0.8s;
 
 }

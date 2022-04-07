@@ -86,8 +86,12 @@ html{
 
 }
 
-
-
+.cheat{
+    opacity: 0;
+}
+.cheat .op{
+    opacity: 1;
+}
 
 
 

@@ -8,7 +8,7 @@ let gamePass = 0;
 let cardSet = [];
 let cardSeq = [];
 let colorSet = [];
-let cardPair = [[],[]];
+let cardPair = [[], []];
 let playGround = document.querySelector('.playground');
 
 class Point {
@@ -39,14 +39,6 @@ class Card {
         this.pair = pair;
         this.color = color;
     }
-    front() {
-        let select = `.row:nth-child(${this.point.x})>.card:nth-child(${this.point.y})`;
-        console.log(document.querySelector(select));
-    }
-    obverse() {
-        let select = `.row:nth-child(${this.point.x})>.card:nth-child(${this.point.y})`;
-        console.log(document.querySelector(select));
-    }
     showPoint() {
         console.log(this.point.x, this.point.y);
     }
@@ -56,12 +48,12 @@ class Game {
     constructor(level = 1, cardNum = 4) {
         this.level = level;
         this.cardNum = cardNum;
-        this.game=this;
+        this.game = this;
         this.Init();
-        this.time=parseInt(1000*(1-(this.level-1)*0.1));
-        document.querySelector('.level').textContent=`Level : ${this.level} /n Time : ${this.time}`;
-        console.log("Time : ",this.time);
-        console.log("Level : ",this.level);
+        this.time = parseInt(1000 * (1 - (this.level - 1) * 0.1));
+        document.querySelector('.level').innerHTML = `Level : ${this.level} <br> Time : ${this.time / 1000} sec <br/> 輸入crack可作弊 `;
+        console.log("Time : ", this.time);
+        console.log("Level : ", this.level);
     }
     Init() {
 
@@ -101,7 +93,7 @@ class Game {
             `;
             for (let x = 1; x <= this.cardNum; x++) {
                 card += `<div class="card back" style="background-color:rgb(${cardSet[index].color.r},${cardSet[index].color.g},${cardSet[index].color.b})" data-pair = false data-x=${x} data-y=${y}>
-                ${cardSet[index].pair}
+                <span class="cheat">${cardSet[index].pair}</span>
                 </div>
                 `;
                 index++;
@@ -112,7 +104,7 @@ class Game {
         cardQuery = document.querySelectorAll('.card');
         for (let i = 0; i < cardQuery.length; i++) {
             cardQuery[i].addEventListener('click', e => {
-                if( cardQuery[i].classList.contains("back")){
+                if (cardQuery[i].classList.contains("back")) {
                     return;
                 }
                 let count = 0;
@@ -122,19 +114,15 @@ class Game {
 
                     if (point.compare(cardSet[i].point)) {
                         cardQuery[i].style.backgroundColor = `rgb(${cardSet[i].color.r},${cardSet[i].color.g},${cardSet[i].color.b})`
-                        cardPair.push([cardSet[i].pair,i]);
-                        
-                        
+                        cardPair.push([cardSet[i].pair, i]);
+
+
 
                         let result = this.check();
-                        if( result.result ){
-                      
-                       
+                        if (result.result) {
                             cardQuery[result.returnSet[0]].dataset.pair = true;
                             cardQuery[result.returnSet[1]].dataset.pair = true;
                         }
-
-
 
                     }
 
@@ -146,7 +134,7 @@ class Game {
 
     check() {
         let result = {
-            "returnSet":[],
+            "returnSet": [],
             "result": false
         }
 
@@ -156,20 +144,22 @@ class Game {
 
         if (cardPair[0][0] == cardPair[1][0]) {
             gamePass++;
-            result.returnSet.push(cardPair[0][1],cardPair[1][1]);
+            result.returnSet.push(cardPair[0][1], cardPair[1][1]);
             result.result = true;
-            console.log("pass");
+            //console.log("pass");
+            new Audio('https://awiclass.monoame.com/pianosound/set/5.wav').play();
         }
         else {
             let b = document.querySelectorAll('.back')
             setTimeout(() => {
                 for (let i = 0; i < b.length; i++) {
-                    
-                    if(b[i].dataset.pair == "false"){
+
+                    if (b[i].dataset.pair == "false") {
                         b[i].classList.remove("back");
                         b[i].style.backgroundColor = "aliceblue";
                     }
                 }
+                new Audio('https://awiclass.monoame.com/pianosound/set/5.5.wav').play();
             }, this.time);
             console.log("fail");
             cardPair = [];
@@ -181,8 +171,8 @@ class Game {
             gamePass = 0;
             setTimeout(() => {
                 this.level++;
-                this.game=new Game(this.level,this.cardNum);
-            },1000)
+                this.game = new Game(this.level, this.cardNum);
+            }, 1000)
         }
 
         cardPair = [];
@@ -238,47 +228,29 @@ document.addEventListener('DOMContentLoaded', e => {
     startBtn.addEventListener('submit', e => {
         e.preventDefault();
         let game = new Game(1, rangeN.value);
-        
+
         startBtn.classList.add('hide');
     });
+    let str = "";
+    document.addEventListener('keypress', e => {
+        e.preventDefault()
+        str += e.key;
+        if (str == "crack") {
+            console.log("It's crack");
+            let cad = document.querySelectorAll('.cheat');
+            for (let i = 0; i < cad.length; i++) {
+                cad[i].style.opacity = 1;
+
+            }
+        }
+
+        if (str.length >= 5) {
+            console.log(str);
+            str = "";
+        }
+    })
 
 });
 
-
-
-
-class Block {
-    constructor(blockNum) {
-        this.On = false;
-        this.block = blockNum.map((data, index) => ({
-            name: data.name,
-            el: $(data.selector)
-        }));
-    }
-    on(num) {
-        let block = this.block.find(data => data.name == num);
-        if (block) {
-            block.el.addClass('active');
-            setTimeout(() => {
-                block.el.removeClass('active');
-            }, 800);
-        }
-    }
-    allon() {
-        this.On = true;
-        this.block.forEach(block => {
-            block.el.addClass('active');
-        });
-    }
-    alloff() {
-        this.On = false;
-        this.block.forEach(block => {
-            block.el.removeClass('active');
-        });
-    }
-    getAudio(pitch) {
-        return new Audio(``);
-    }
-}
 
 

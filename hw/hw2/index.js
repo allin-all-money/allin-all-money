@@ -8,7 +8,7 @@ let gamePass = 0;
 let cardSet = [];
 let cardSeq = [];
 let colorSet = [];
-let cardPair = [];
+let cardPair = [[],[]];
 let playGround = document.querySelector('.playground');
 
 class Point {
@@ -56,8 +56,12 @@ class Game {
     constructor(level = 1, cardNum = 4) {
         this.level = level;
         this.cardNum = cardNum;
-        this.tempP = [];
-
+        this.game=this;
+        this.Init();
+        this.time=parseInt(1000*(1-(this.level-1)*0.1));
+        document.querySelector('.level').textContent=`Level : ${this.level} /n Time : ${this.time}`;
+        console.log("Time : ",this.time);
+        console.log("Level : ",this.level);
     }
     Init() {
 
@@ -108,7 +112,9 @@ class Game {
         cardQuery = document.querySelectorAll('.card');
         for (let i = 0; i < cardQuery.length; i++) {
             cardQuery[i].addEventListener('click', e => {
-
+                if( cardQuery[i].classList.contains("back")){
+                    return;
+                }
                 let count = 0;
                 cardQuery[i].classList.add("back");
                 let point = new Point(cardQuery[i].dataset.x, cardQuery[i].dataset.y);
@@ -116,11 +122,16 @@ class Game {
 
                     if (point.compare(cardSet[i].point)) {
                         cardQuery[i].style.backgroundColor = `rgb(${cardSet[i].color.r},${cardSet[i].color.g},${cardSet[i].color.b})`
-                        cardPair.push(cardSet[i].pair);
-                        cardQuery[i].dataset.pair = true;
+                        cardPair.push([cardSet[i].pair,i]);
+                        
+                        
 
-                        if( this.check(count) == 10 ){
-                            
+                        let result = this.check();
+                        if( result.result ){
+                      
+                       
+                            cardQuery[result.returnSet[0]].dataset.pair = true;
+                            cardQuery[result.returnSet[1]].dataset.pair = true;
                         }
 
 
@@ -133,41 +144,49 @@ class Game {
         }
     }
 
-    check(index) {
-
-        if (cardPair.length != 2) {
-            index++;
-            return index;
+    check() {
+        let result = {
+            "returnSet":[],
+            "result": false
         }
 
-        if (cardPair[0] == cardPair[1]) {
+        if (cardPair.length != 2) {
+            return result;
+        }
+
+        if (cardPair[0][0] == cardPair[1][0]) {
             gamePass++;
-            console.log("Ok");
+            result.returnSet.push(cardPair[0][1],cardPair[1][1]);
+            result.result = true;
+            console.log("pass");
         }
         else {
             let b = document.querySelectorAll('.back')
             setTimeout(() => {
                 for (let i = 0; i < b.length; i++) {
-                    b[i].classList.remove("back");
-                    b[i].style.backgroundColor = "aliceblue";
+                    
+                    if(b[i].dataset.pair == "false"){
+                        b[i].classList.remove("back");
+                        b[i].style.backgroundColor = "aliceblue";
+                    }
                 }
-            }, 1000);
+            }, this.time);
             console.log("fail");
-            this.tempP = []
             cardPair = [];
-            index = 0;
-            return 10;
+            return result;
         }
 
         if (gamePass == (this.cardNum * this.cardNum) / 2) {
             console.log("All pass");
             gamePass = 0;
+            setTimeout(() => {
+                this.level++;
+                this.game=new Game(this.level,this.cardNum);
+            },1000)
         }
 
-        this.tempP = []
         cardPair = [];
-        index = 0;
-        return index;
+        return result;
     }
     front() {
         let b = document.querySelectorAll('.back');
@@ -219,7 +238,7 @@ document.addEventListener('DOMContentLoaded', e => {
     startBtn.addEventListener('submit', e => {
         e.preventDefault();
         let game = new Game(1, rangeN.value);
-        game.Init();
+        
         startBtn.classList.add('hide');
     });
 

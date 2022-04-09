@@ -115,9 +115,6 @@ class Game {
                     if (point.compare(cardSet[i].point)) {
                         cardQuery[i].style.backgroundColor = `rgb(${cardSet[i].color.r},${cardSet[i].color.g},${cardSet[i].color.b})`
                         cardPair.push([cardSet[i].pair, i]);
-
-
-
                         let result = this.check();
                         if (result.result) {
                             cardQuery[result.returnSet[0]].dataset.pair = true;

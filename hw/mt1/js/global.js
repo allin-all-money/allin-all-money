@@ -1,4 +1,18 @@
-const hash = function (str, seed = 0) {
+let noteItem;
+
+/**
+ * @param bb before begin
+ * @param ab after begin
+ * @param be before end
+ * @param ae after end
+ */
+let insertPosition={
+    "bb":"beforebegin",
+    "ab":"afterbegin",
+    "be":"beforeend",
+    "ae":"afterend",
+}
+function hash(str, seed = 0) {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
     for (let i = 0, ch; i < str.length; i++) {
         ch = str.charCodeAt(i);

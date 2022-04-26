@@ -18,11 +18,11 @@ body {
     display: block;
     width: 20vw;
     min-width: 320px;
+    border-right: 1px solid rgb(226, 226, 226);
 }
 
 .right.panel {
     display: block;
-    border-left: 1px solid rgb(226, 226, 226);
     width: 80vw;
     min-height: 300px;
 }
@@ -37,6 +37,11 @@ select{
     border: none;
     outline: none;
     font-size: 1.2rem;
+    text-align: center;
+    width: 90%;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgb(201, 241, 241);
 }
 
 .btn{
@@ -57,9 +62,8 @@ select{
 
 .add.btn {
     background-color: rgb(86, 200, 245);
-}
-.sel.btn{
-    background-color: rgb(26, 125, 218);
+    text-align: center;
+    width: 90%;
 }
 .cancel.btn{
     background-color: rgb(221, 90, 90);
@@ -74,9 +78,6 @@ select{
 }
 .add.btn:hover{
     background-color: rgb(126, 219, 255);
-}
-.sel.btn:hover{
-    background-color: rgb(191, 224, 255);
 }
 .cancel.btn:hover{
     background-color: rgb(216, 144, 144);  
@@ -146,7 +147,7 @@ select{
     background-image: linear-gradient(to right,rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 0) 50%,rgba(255, 255, 255, 0.158) 60%,rgba(255, 255, 255, 0.733) 80%,rgb(255, 255, 255) 100%);
     cursor: pointer;
 }
-.note-list.del>.note-item::before,.note-item:hover.note-item::before{
+.note-list.sel>.note-item::before,.note-item:hover.note-item::before{
     background-image: linear-gradient(to right,rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 0) 50%,rgba(255, 255, 255, 0) 60%,rgba(255, 255, 255, 0) 80%,rgba(255, 255, 255, 0) 100%);
 }
 
@@ -160,8 +161,8 @@ select{
     border-bottom: 1px solid rgb(223, 223, 223);
     transition: background-color 0.7s;
 }
-/**********Delete Mode***********/
-.note-list.del>.note-item::before{
+/**********Select Mode***********/
+.note-list.sel>.note-item::before{
     display: block;
     position: absolute;
     content: '';
@@ -170,7 +171,7 @@ select{
     z-index: 50;
     background-color: rgba(163, 163, 163, 0.479);
 }
-.note-list.del>.note-item::after{
+.note-list.sel>.note-item::after{
     display: block;
     position: absolute;
     content: '';
@@ -182,7 +183,7 @@ select{
     z-index: 100;
     background-color: rgb(255, 255, 255);
 }
-.note-list.del>.note-item.check::after{
+.note-list.sel>.note-item.active::after{
     background-color: rgb(219, 49, 49);
 }
 /**********Delete Mode above***********/
@@ -195,11 +196,19 @@ select{
     background-color: rgb(206, 206, 206);
     transition: background-color 0.7s;
 }
+.note-item:active>span:nth-child(1),
+.note-item.active>span:nth-child(1),
+.note-item:active>span:nth-child(2),
+.note-item.active>span:nth-child(2){
+    color: rgb(128, 128, 128);
+}
 
 .note-item>span {
     display: block;
     margin: 5px 15px;
     overflow: hidden;
+    user-select: none;
+    width: 88%;
 }
 
 .note-item>span:nth-child(1) {
@@ -208,7 +217,14 @@ select{
 }
 
 .note-item>span:nth-child(2) {
-    height: 1.4em;
+    height: 0.9em;
+}
+.note-item>span:nth-child(3) {
+    position: absolute;
+    z-index: 150;
+    text-align: right;
+    font-size: 0.7em;
+    top: 55px;
 }
 /*-----------------right-------------------*/
 .note-title{

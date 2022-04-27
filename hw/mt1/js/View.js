@@ -2,7 +2,7 @@ import event from './Event.js';
 import leftPanel from './component/leftPanel.js';
 import rightPanel from './component/rightPanel.js';
 import noteItem from './component/noteItem.js';
-import note from './note.js';
+import note from './Note.js';
 
 export default class view {
     constructor(root = new HTMLElement()) {

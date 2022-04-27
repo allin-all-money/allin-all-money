@@ -22,7 +22,7 @@ export default class view {
     renderNoteItem(notes) {
         let noteList = document.querySelector('.note-list');
         for(let i in notes){
-      
+            
             let tmp ={
                 time:notes[i].update,
                 id:i,

@@ -1,5 +1,5 @@
 let noteItem;
-
+let noteStatus=['Processing','Complete','Delete']
 /**
  * @param bb before begin
  * @param ab after begin

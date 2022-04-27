@@ -29,10 +29,10 @@ export default class event {
                         this.newNote(control)
                         break;
                     case "Delete":
-                        deleteNote()
+                        this.deleteNote();
                         break;
                     case "Complete":
-                        completeNote()
+                        this.completeNote();
                         break;
                     case "Cancel":
 
@@ -75,11 +75,21 @@ export default class event {
             id: `${hash(time)}`,
             title: "",
             body: "",
-            status: "p"
+            status: noteStatus[0]
         }
-
+        let tmp = {time:inputData.time,
+            title:inputData.title,
+            body:inputData.body,
+            status:inputData.status,
+        }
+        
 
         noteItem.insert(noteList, insertPosition['ab'], inputData);
+        note.saveNotes(inputData.id,{time:inputData.time,
+            title:inputData.title,
+            body:inputData.body,
+            status:inputData.status,
+        })
         noteList.querySelectorAll('.note-item').forEach(i => {
             i.classList.remove('active');
         });
@@ -116,7 +126,7 @@ export default class event {
                     "title": `${contentTitle.value}`,
                     "body": `${contentBody.value}`,
                     "update": `${time}`,
-                    "status": `p`
+                    "status": noteStatus[0]
                 }
                 span1.textContent = contentTitle.value;
                 span2.textContent = contentBody.value;
@@ -139,7 +149,7 @@ export default class event {
     click(data, items) {
         let list = document.querySelector('.note-list');
         if (!list.classList.contains('sel')) {
-            
+
             for (let i of items) {
                 i.classList.remove('active')
             }
@@ -152,14 +162,19 @@ export default class event {
             let contentBody = document.querySelector('textarea');
             let id = data.dataset.id;
             let Notes = JSON.parse(note.getNotes());
-            contentTitle.value=Notes[id].title;
-            contentBody.value=Notes[id].body;
+            contentTitle.value = Notes[id].title??"";
+            contentBody.value = Notes[id].body??"";
             data.classList.add('active')
 
         }
         else {
 
-            data.classList.add('active')
+            if (data.classList.contains('active')) {
+                data.classList.remove('active');
+            }
+            else {
+                data.classList.add('active')
+            }
         }
 
     }
@@ -181,6 +196,44 @@ export default class event {
             }
         });
 
+    }
+    deleteNote() {
+        let del = document.querySelectorAll('.note-item.active');
+        let Notes = JSON.parse(note.getNotes());
+        for (let i of del) {
+
+            console.log(i)
+            let id = i.dataset.id;
+            let tmp = {
+                "title": `${Notes[id].title}`,
+                "body": `${Notes[id].body}`,
+                "update": `${Notes[id].update}`,
+                "status": noteStatus[2]
+            }
+            note.saveNotes(`${id}`, tmp);
+        }
+
+
+
+        let row = document.querySelectorAll('.row');
+        let noteitem = document.querySelectorAll('.note-item');
+        let list = document.querySelector('.note-list');
+        let seq;
+        seq = [1, 0, 0, 1]
+        row.forEach((item, index) => {
+            if (seq[index]) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        });
+        noteitem.forEach(item => {
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+            }
+        });
+        list.classList.remove('sel')
     }
 
 

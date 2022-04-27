@@ -18,10 +18,11 @@ export default class noteItem extends componenet{
         <div class="note-item" data-id="${item.id}">
         <span>${item.title}</span> 
         <span>${item.body}</span>
-        <span>${item.time}</span
+        <div>${item.status}</div>
+        <span>${item.update}</span>
         </div>`);
     }
-    static insert(ParentNode=new Element(),Position="beforeend",item={id:"",title:"",body:"",time:""}){
+    static insert(ParentNode=new Element(),Position="beforeend",item={id:"",title:"",body:"",update:"",status:""}){
         ParentNode.insertAdjacentHTML(Position,this.bodyContent(item));
     }
     

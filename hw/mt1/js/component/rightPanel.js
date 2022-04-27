@@ -24,6 +24,7 @@ export default class rightPanel extends componenet{
      static insert(ParentNode=new Element(),Position="beforeend"){
         ParentNode.insertAdjacentHTML(Position,this.bodyContent());
         this.Exist=true;
+        this.xx = "";
     }
     static isExist(){
         return this.Exist;

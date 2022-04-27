@@ -7,7 +7,7 @@ export default class leftPanel extends componenet{
     }
     static bodyContent(){
         return(`
-        <div class="left panel"><div class="control"><div class="row"><button type="button" class="add btn">New</button></div><div class="row hide"><button type="button" class="del btn">Delete</button> <button type="button" class="com btn">Complete</button></div><div class="row hide"><button type="button" class="cancel btn">Cancel</button></div><div class="row"><select><option>All</option><option>Processing</option><option>Complete</option><option>Delete</option></select></div><div></div></div><span class="underline"></span><div class="note-list"></div></div>
+        <div class="left panel"><form class="control"><div class="row"><button type="button" class="add btn">New</button></div><div class="row hide"><button type="button" class="del btn">Delete</button> <button type="button" class="com btn">Complete</button></div><div class="row hide"><button type="button" class="cancel btn">Cancel</button></div><div class="row"><select><option>All</option><option>Processing</option><option>Complete</option><option>Delete</option></select></div><div></div></form><span class="underline"></span><div class="note-list"></div></div>
         `)
     }
 
@@ -37,7 +37,8 @@ export default class leftPanel extends componenet{
                     </select>
                 </div>
                 <div></div>
-            </div><span class="underline"></span>
+            </div>
+            <span class="underline"></span>
             <div class="note-list"></div>
         </div>
 */

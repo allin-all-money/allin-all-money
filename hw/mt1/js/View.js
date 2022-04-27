@@ -6,7 +6,7 @@ import note from './Note.js';
 
 export default class view {
     constructor(root = new HTMLElement()) {
-        //note.clear()
+        note.clear()
         leftPanel.insert(root);
         let eventVar = new event()
         eventVar.btnRegEvent(root.querySelector('.control'));
@@ -24,7 +24,7 @@ export default class view {
         for(let i in notes){
             
             let tmp ={
-                time:notes[i].update,
+                update:notes[i].update,
                 id:i,
                 title:notes[i].title,
                 body:notes[i].body,

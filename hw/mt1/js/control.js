@@ -9,12 +9,5 @@ export default class control{
         this.view = new view(root)
         this.initial(root);
     }
-    initial(){
-        let record = note.getNotes();
-
-
-
-    }
-
 
 }

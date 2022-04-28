@@ -12,8 +12,11 @@ export default class noteItem extends componenet{
      * @param {String} time The time that Note modify
      * @returns void
      */
-    static bodyContent(item){
-        
+    static bodyContent(item={id:"",title:"",body:"",update:"",status:""}){
+        if(item.status.includes(noteStatus[2])){
+            item.status=noteStatus[2];
+        }
+        item.title==""?item.title = "Title":item.title
         return (`
         <div class="note-item" data-id="${item.id}">
         <span>${item.title}</span> 

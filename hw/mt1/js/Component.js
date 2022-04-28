@@ -13,8 +13,5 @@ export default class Componenet {
     static bodyContent(){
         return '';
     }
-    static getInserPoint(){
-        return ;
-    }
-
+ 
 }

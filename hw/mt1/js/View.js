@@ -6,12 +6,15 @@ import note from './Note.js';
 
 export default class view {
     constructor(root = new HTMLElement()) {
-        note.clear()
+        //note.clear()
         leftPanel.insert(root);
         let eventVar = new event()
+        eventVar.selectRegEvent(root.querySelector('select'));
         eventVar.btnRegEvent(root.querySelector('.control'));
         this.initialRender()
         eventVar.itemEventReg();
+        
+        
     }
     initialRender() {
         let Notes = JSON.parse(note.getNotes());

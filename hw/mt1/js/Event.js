@@ -1,19 +1,37 @@
 import note from "./Note.js";
 import noteItem from "./component/noteItem.js";
 import rightPanel from "./component/rightPanel.js";
+
 export default class event {
     constructor() {
+        this.stateBar = ""
 
     }
 
     selectRegEvent(select = new HTMLElement()) {
+        this.stateBar = select.value
         select.addEventListener('change', () => {
+            this.stateBar = select.value
+            switch (this.stateBar) {
+                case noteStatus[0]:
+                    this.processing()
+                    break;
+                case noteStatus[1]:
 
-            let v = document.querySelector('select');
-            console.log(v.value);
+                    break;
+                case noteStatus[2]:
+
+                    break;
+                default:
+
+                    break;
+            }
+            console.log(this.stateBar)
         });
     }
+    processing() {
 
+    }
     btnRegEvent(control = new HTMLElement()) {
         let btn = control.querySelectorAll('.btn');
 
@@ -37,7 +55,6 @@ export default class event {
                         this.completeNote();
                         break;
                     case "Cancel":
-
                         seq = [1, 0, 0, 1]
                         row.forEach((item, index) => {
                             if (seq[index]) {
@@ -57,11 +74,11 @@ export default class event {
                 }
                 //console.log(label);
             });
- 
+
         });
 
     }
- 
+
     newNote() {
 
         let noteList = document.querySelector('.note-list');
@@ -101,18 +118,15 @@ export default class event {
         item = noteList.querySelectorAll('.note-item');
         note.saveNotes(inputData.id, tmp)
         this.rightPanelEvent();
+        document.querySelector('input').focus()
         this.itemEventReg();
         return;
     }
 
     rightPanelEvent() {
 
-        document.querySelector('input').addEventListener('input', () => {
-            this.updateNote()
-        });
-        document.querySelector('textarea').addEventListener('input', () => {
-            this.updateNote()
-        });
+        document.querySelector('input').addEventListener('input', this.updateNote);
+        document.querySelector('textarea').addEventListener('input', this.updateNote);
     }
 
     updateNote() {
@@ -134,7 +148,15 @@ export default class event {
                     "update": `${time}`,
                     "status": noteStatus[0]
                 }
-                span1.textContent = contentTitle.value;
+                if (contentTitle.value == "") {
+
+                 
+                    span1.textContent = "Title"
+                }
+                else {
+           
+                    span1.textContent = contentTitle.value;
+                }
                 span2.textContent = contentBody.value;
                 span3.textContent = time;
                 note.saveNotes(`${i.dataset.id}`, Notes);
@@ -144,19 +166,21 @@ export default class event {
     }
     itemEventReg() {
         let notes = document.querySelectorAll('.note-item');
-        for (let i of notes) {      
-            i.addEventListener('click', this.click)
-            i.data=i
+
+
+        for (let i of notes) {
+
+            i.addEventListener('click', this.click);
+            i.data = i;
+
             i.addEventListener('dblclick', this.dblclick);
         }
 
-
     }
 
-    click(e) {
-        let data =e.currentTarget.data;
-        let items=document.querySelectorAll('.note-item');
-        console.log('hi')
+    click(data) {
+        data = data.currentTarget.data
+        let items = document.querySelectorAll('.note-item');
         let list = document.querySelector('.note-list');
         if (!list.classList.contains('sel')) {
 
@@ -167,11 +191,12 @@ export default class event {
             if (!rightPanel.isExist()) {
                 rightPanel.insert(lPanel, insertPosition['ae']);
             }
-
+            new event().rightPanelEvent()
             let contentTitle = document.querySelector('input');
             let contentBody = document.querySelector('textarea');
             let id = data.dataset.id;
             let Notes = JSON.parse(note.getNotes());
+            contentTitle.focus();
             contentTitle.value = Notes[id].title ?? "";
             contentBody.value = Notes[id].body ?? "";
             data.classList.add('active')
@@ -179,7 +204,7 @@ export default class event {
         }
         else {
             list = document.querySelector('.note-list');
-            
+
             if (data.classList.contains('active')) {
 
                 data.classList.remove('active');
@@ -192,10 +217,10 @@ export default class event {
 
     }
     dblclick() {
-        console.log('hi')
+
         let list = document.querySelector('.note-list');
         list.classList.add('sel');
-
+        rightPanel.remove();
         let row = document.querySelectorAll('.row');
         let seq;
         seq = [0, 1, 1, 0]
@@ -213,19 +238,21 @@ export default class event {
     deleteNote() {
         let del = document.querySelectorAll('.note-item.active');
         let Notes = JSON.parse(note.getNotes());
+        console.log("before", Notes)
         for (let i of del) {
-
-            console.log(i)
             let id = i.dataset.id;
-            let tmp = {
-                "title": `${Notes[id].title}`,
-                "body": `${Notes[id].body}`,
-                "update": `${Notes[id].update}`,
-                "status": noteStatus[2]
+            if (Notes[id].status.includes(noteStatus[2])) {
+                Notes[id].status = String(Notes[id].status).replace(`,${noteStatus[2]}`, "")
             }
-            note.saveNotes(`${id}`, tmp);
+            else {
+                Notes[id].status += `,${noteStatus[2]}`;
+            }
+
+            note.saveNotes(`${id}`, Notes[id]);
         }
 
+        console.log("after", Notes)
+        console.log("-------------")
 
 
         let row = document.querySelectorAll('.row');
@@ -264,6 +291,7 @@ export default class event {
 
         }
         this.itemEventReg();
+        
     }
 
 

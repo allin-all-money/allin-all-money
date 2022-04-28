@@ -9,7 +9,7 @@ export default class note {
         return notes;
     }
     static saveNotes(key="",value={}) {
-        console.log("Saved")
+
         let notes = JSON.parse(this.getNotes()) ?? {};
         notes[key]=value;
         localStorage.setItem('noteApp',JSON.stringify(notes));

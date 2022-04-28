@@ -300,7 +300,7 @@ export default class event {
     deleteNote() {
         let del = document.querySelectorAll('.note-item.active');
         let Notes = JSON.parse(note.getNotes());
-        console.log("before", Notes)
+
         for (let i of del) {
             let id = i.dataset.id;
             if (Notes[id].status.includes(noteStatus[2])) {
@@ -313,8 +313,7 @@ export default class event {
             note.saveNotes(`${id}`, Notes[id]);
         }
 
-        console.log("after", Notes)
-        console.log("-------------")
+  
 
 
         let row = document.querySelectorAll('.row');
@@ -352,6 +351,21 @@ export default class event {
             noteItem.insert(list, insertPosition['ab'], tmp)
 
         }
+        switch (this.stateBar) {
+            case noteStatus[0]:
+                this.showprocessing()
+                break;
+            case noteStatus[1]:
+                this.showComplete()
+                break;
+            case noteStatus[2]:
+                this.showDelete()
+                break;
+            default:
+                this.showAll()
+                break;
+        }
+
         this.itemEventReg();
 
     }
@@ -407,6 +421,20 @@ export default class event {
 
             noteItem.insert(list, insertPosition['ab'], tmp)
 
+        }
+        switch (this.stateBar) {
+            case noteStatus[0]:
+                this.showprocessing()
+                break;
+            case noteStatus[1]:
+                this.showComplete()
+                break;
+            case noteStatus[2]:
+                this.showDelete()
+                break;
+            default:
+                this.showAll()
+                break;
         }
         this.itemEventReg();
 

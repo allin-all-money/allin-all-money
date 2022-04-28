@@ -17,12 +17,7 @@ export default class view {
         
     }
     initialRender() {
-        let Notes = JSON.parse(note.getNotes());
-        //console.log(Notes)
-        this.renderNoteItem(Notes)
-
-    }
-    renderNoteItem(notes) {
+        let notes = JSON.parse(note.getNotes());
         let noteList = document.querySelector('.note-list');
         for(let i in notes){
             
@@ -37,8 +32,8 @@ export default class view {
             noteItem.insert(noteList,insertPosition['ab'],tmp)
             
         }
- 
- 
+
     }
+
 
 }

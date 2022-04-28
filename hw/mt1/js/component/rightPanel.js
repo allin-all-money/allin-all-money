@@ -1,19 +1,28 @@
 import componenet from "../Component.js";
 
-export default class rightPanel extends componenet{
-    static Exist=false;
-    constructor(){
-        
+export default class rightPanel extends componenet {
+    static Exist = false;
+    constructor() {
+
         super();
     }
-    static bodyContent(title="",body=""){
-        let html = `
-        <input class="note-title" type="text" placeholder="Enter a title..." value="${title}">
-        <textarea class="note-content" placeholder="I am the notes body..." value="${body}"></textarea>
-        `
-        let rtn = document.createElement('div');
-        rtn.innerHTML=html;
-        rtn.classList="right panel";
+    static bodyContent(readOnly = false) {
+        let html=""
+        if (!readOnly) {
+            html = `
+            <input class="note-title" type="text" placeholder="Enter a title..." value="">
+            <textarea class="note-content" placeholder="I am the notes body..." value=""></textarea>
+            `
+        }
+        else {
+            html = `
+            <input readonly class="note-title" type="text" placeholder="Enter a title..." value="">
+            <textarea readonly class="note-content" placeholder="I am the notes body..." value=""></textarea>
+            `
+        }
+            let rtn = document.createElement('div');
+            rtn.innerHTML = html;
+            rtn.classList = "right panel";
         return rtn;
     }
     /**
@@ -21,17 +30,22 @@ export default class rightPanel extends componenet{
      * @param {Element} ParentNode 
      * @param {String} Position beforebegin | afterbegin | beforeend | afterend
      */
-     static insert(ParentNode=new Element(),Position="beforeend"){
-        ParentNode.insertAdjacentElement(Position,this.bodyContent());
-        this.Exist=true;
-        this.xx = "";
+    static insert(ParentNode = new Element(), Position = "beforeend", readOnly = false) {
+
+        ParentNode.insertAdjacentElement(Position, this.bodyContent(readOnly));
+        this.Exist = true;
+
+
+
+
+
     }
-    static isExist(){
+    static isExist() {
         return this.Exist;
     }
-    static remove(){
+    static remove() {
         document.querySelector('.right.panel').remove();
-        this.Exist=false;
+        this.Exist = false;
     }
 }
 

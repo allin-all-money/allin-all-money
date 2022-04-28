@@ -189,12 +189,12 @@ select{
 /**********Delete Mode above***********/
 .note-item:hover {
     background-color: rgb(206, 206, 206);
-    transition: background-color 0.7s;
+    transition: background-color 0.3s;
 }
 
 .note-item:active, .note-item.active {
     background-color: rgb(206, 206, 206);
-    transition: background-color 0.7s;
+    
 }
 .note-item:active>span:nth-child(1),
 .note-item.active>span:nth-child(1),

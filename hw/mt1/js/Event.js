@@ -14,24 +14,101 @@ export default class event {
             this.stateBar = select.value
             switch (this.stateBar) {
                 case noteStatus[0]:
-                    this.processing()
+                    this.showprocessing()
                     break;
                 case noteStatus[1]:
-
+                    this.showComplete()
                     break;
                 case noteStatus[2]:
-
+                    this.showDelete()
                     break;
                 default:
-
+                    this.showAll()
                     break;
             }
             console.log(this.stateBar)
+            this.itemEventReg();
         });
     }
-    processing() {
+    showprocessing() {
+        let notes = JSON.parse(note.getNotes());
+        let noteList = document.querySelector('.note-list');
+        noteList.innerHTML="";
+        for(let i in notes){
+            if( notes[i].status!=noteStatus[0] ){
+                continue;
+            }
+            let tmp ={
+                update:notes[i].update,
+                id:i,
+                title:notes[i].title,
+                body:notes[i].body,
+                status:notes[i].status
+            }
+            
+            noteItem.insert(noteList,insertPosition['ab'],tmp)
+            
+        }
 
     }
+    showComplete(){
+        let notes = JSON.parse(note.getNotes());
+        let noteList = document.querySelector('.note-list');
+        noteList.innerHTML="";
+        for(let i in notes){
+            if( notes[i].status!=noteStatus[1] ){
+                continue;
+            }
+            let tmp ={
+                update:notes[i].update,
+                id:i,
+                title:notes[i].title,
+                body:notes[i].body,
+                status:notes[i].status
+            }
+            
+            noteItem.insert(noteList,insertPosition['ab'],tmp)
+            
+        }
+
+    }
+    showDelete(){
+        let notes = JSON.parse(note.getNotes());
+        let noteList = document.querySelector('.note-list');
+        noteList.innerHTML="";
+        for(let i in notes){
+            if( !String(notes[i].status).includes(noteStatus[2])){
+                continue;
+            }
+            let tmp ={
+                update:notes[i].update,
+                id:i,
+                title:notes[i].title,
+                body:notes[i].body,
+                status:notes[i].status
+            }
+            noteItem.insert(noteList,insertPosition['ab'],tmp)
+        }
+    }
+    showAll(){
+        let notes = JSON.parse(note.getNotes());
+        let noteList = document.querySelector('.note-list');
+        noteList.innerHTML="";
+        for(let i in notes){
+            
+            let tmp ={
+                update:notes[i].update,
+                id:i,
+                title:notes[i].title,
+                body:notes[i].body,
+                status:notes[i].status
+            }
+            
+            noteItem.insert(noteList,insertPosition['ab'],tmp)
+            
+        }
+    }
+
     btnRegEvent(control = new HTMLElement()) {
         let btn = control.querySelectorAll('.btn');
 
@@ -39,10 +116,7 @@ export default class event {
             let label = i.textContent;
             i.addEventListener('click', (e) => {
 
-                let row = control.querySelectorAll('.row');
-                let noteitem = document.querySelectorAll('.note-item');
-                let list = document.querySelector('.note-list');
-                let seq;
+
 
                 switch (label) {
                     case "New":
@@ -55,21 +129,7 @@ export default class event {
                         this.completeNote();
                         break;
                     case "Cancel":
-                        seq = [1, 0, 0, 1]
-                        row.forEach((item, index) => {
-                            if (seq[index]) {
-                                item.classList.remove('hide');
-                            }
-                            else {
-                                item.classList.add('hide');
-                            }
-                        });
-                        noteitem.forEach(item => {
-                            if (item.classList.contains('active')) {
-                                item.classList.remove('active');
-                            }
-                        });
-                        list.classList.remove('sel')
+                        this.cancel();
                         break;
                 }
                 //console.log(label);
@@ -150,11 +210,11 @@ export default class event {
                 }
                 if (contentTitle.value == "") {
 
-                 
+
                     span1.textContent = "Title"
                 }
                 else {
-           
+
                     span1.textContent = contentTitle.value;
                 }
                 span2.textContent = contentBody.value;
@@ -164,6 +224,7 @@ export default class event {
             }
         })
     }
+
     itemEventReg() {
         let notes = document.querySelectorAll('.note-item');
 
@@ -172,7 +233,6 @@ export default class event {
 
             i.addEventListener('click', this.click);
             i.data = i;
-
             i.addEventListener('dblclick', this.dblclick);
         }
 
@@ -182,38 +242,40 @@ export default class event {
         data = data.currentTarget.data
         let items = document.querySelectorAll('.note-item');
         let list = document.querySelector('.note-list');
-        if (!list.classList.contains('sel')) {
 
-            for (let i of items) {
-                i.classList.remove('active')
-            }
-            let lPanel = document.querySelector('.left.panel');
-            if (!rightPanel.isExist()) {
-                rightPanel.insert(lPanel, insertPosition['ae']);
-            }
-            new event().rightPanelEvent()
-            let contentTitle = document.querySelector('input');
-            let contentBody = document.querySelector('textarea');
-            let id = data.dataset.id;
-            let Notes = JSON.parse(note.getNotes());
-            contentTitle.focus();
-            contentTitle.value = Notes[id].title ?? "";
-            contentBody.value = Notes[id].body ?? "";
-            data.classList.add('active')
-
-        }
-        else {
+        if (list.classList.contains('sel')) {
             list = document.querySelector('.note-list');
-
-            if (data.classList.contains('active')) {
-
-                data.classList.remove('active');
-            }
-            else {
-
-                data.classList.add('active')
-            }
+            data.classList.contains('active') ? data.classList.remove('active') : data.classList.add('active');
+            return;
         }
+
+
+        let id = data.dataset.id;
+        let readonly = false;
+        let Notes = JSON.parse(note.getNotes());
+        let contentTitle, contentBody;
+        if ( String(Notes[id].status).includes(noteStatus[2]) || String(Notes[id].status).includes(noteStatus[1])) {
+            readonly = true;
+        }
+        for (let i of items) {
+            i.classList.remove('active')
+        }
+
+        if (rightPanel.isExist())
+            rightPanel.remove();
+        rightPanel.insert(document.querySelector('.left.panel'), insertPosition['ae'], readonly);
+
+        new event().rightPanelEvent()
+        contentTitle = document.querySelector('input');
+        contentBody = document.querySelector('textarea');
+        contentTitle.focus();
+        contentTitle.value = Notes[id].title ?? "";
+        contentBody.value = Notes[id].body ?? "";
+        data.classList.add('active')
+        return;
+
+
+
 
     }
     dblclick() {
@@ -291,8 +353,84 @@ export default class event {
 
         }
         this.itemEventReg();
-        
-    }
 
+    }
+    completeNote() {
+        let del = document.querySelectorAll('.note-item.active');
+        let Notes = JSON.parse(note.getNotes());
+
+        for (let i of del) {
+            let id = i.dataset.id;
+            if (Notes[id].status.includes(noteStatus[0])) {
+                Notes[id].status = String(Notes[id].status).replace(`${noteStatus[0]}`, `${noteStatus[1]}`)
+            }
+            else {
+                Notes[id].status = String(Notes[id].status).replace(`${noteStatus[1]}`, `${noteStatus[0]}`)
+            }
+
+            note.saveNotes(`${id}`, Notes[id]);
+        }
+
+
+
+        let row = document.querySelectorAll('.row');
+        let noteitem = document.querySelectorAll('.note-item');
+        let list = document.querySelector('.note-list');
+        let seq;
+        seq = [1, 0, 0, 1]
+        row.forEach((item, index) => {
+            if (seq[index]) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        });
+        noteitem.forEach(item => {
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+            }
+        });
+        list.classList.remove('sel');
+
+        list.innerHTML = "";
+        Notes = JSON.parse(note.getNotes());
+        for (let i in Notes) {
+
+            let tmp = {
+                update: Notes[i].update,
+                id: i,
+                title: Notes[i].title,
+                body: Notes[i].body,
+                status: Notes[i].status
+            }
+
+            noteItem.insert(list, insertPosition['ab'], tmp)
+
+        }
+        this.itemEventReg();
+
+    }
+    cancel() {
+        let row = document.querySelectorAll('.row');
+        let noteitem = document.querySelectorAll('.note-item');
+        let list = document.querySelector('.note-list');
+        let seq;
+        seq = [1, 0, 0, 1]
+        row.forEach((item, index) => {
+            if (seq[index]) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        });
+        noteitem.forEach(item => {
+            if (item.classList.contains('active')) {
+                item.classList.remove('active');
+            }
+        });
+        list.classList.remove('sel')
+    }
 
 }

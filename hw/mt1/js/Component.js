@@ -1,4 +1,3 @@
-import event from "./Event.js";
 export default class Componenet {
     constructor() {
     }

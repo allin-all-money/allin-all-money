@@ -116,8 +116,6 @@ export default class event {
             let label = i.textContent;
             i.addEventListener('click', (e) => {
 
-
-
                 switch (label) {
                     case "New":
                         this.newNote(control)
@@ -138,7 +136,6 @@ export default class event {
         });
 
     }
-
     newNote() {
 
         let noteList = document.querySelector('.note-list');
@@ -181,121 +178,6 @@ export default class event {
         document.querySelector('input').focus()
         this.itemEventReg();
         return;
-    }
-
-    rightPanelEvent() {
-
-        document.querySelector('input').addEventListener('input', this.updateNote);
-        document.querySelector('textarea').addEventListener('input', this.updateNote);
-    }
-
-    updateNote() {
-
-        let item = document.querySelectorAll('.note-item');
-        item.forEach(i => {
-            if (i.classList.contains("active")) {
-
-                let contentTitle = document.querySelector('input');
-                let contentBody = document.querySelector('textarea');
-                let span1 = i.querySelector('span:nth-child(1)');
-                let span2 = i.querySelector('span:nth-child(2)');
-                let span3 = i.querySelector('span:nth-child(4)');
-                let time = new Date().toLocaleString();
-                let Notes = {
-                    "id": `${i.dataset.id}`,
-                    "title": `${contentTitle.value}`,
-                    "body": `${contentBody.value}`,
-                    "update": `${time}`,
-                    "status": noteStatus[0]
-                }
-                if (contentTitle.value == "") {
-
-
-                    span1.textContent = "Title"
-                }
-                else {
-
-                    span1.textContent = contentTitle.value;
-                }
-                span2.textContent = contentBody.value;
-                span3.textContent = time;
-                note.saveNotes(`${i.dataset.id}`, Notes);
-
-            }
-        })
-    }
-
-    itemEventReg() {
-        let notes = document.querySelectorAll('.note-item');
-
-
-        for (let i of notes) {
-
-            i.addEventListener('click', this.click);
-            i.data = i;
-            i.addEventListener('dblclick', this.dblclick);
-        }
-
-    }
-
-    click(data) {
-        data = data.currentTarget.data
-        let items = document.querySelectorAll('.note-item');
-        let list = document.querySelector('.note-list');
-
-        if (list.classList.contains('sel')) {
-            list = document.querySelector('.note-list');
-            data.classList.contains('active') ? data.classList.remove('active') : data.classList.add('active');
-            return;
-        }
-
-
-        let id = data.dataset.id;
-        let readonly = false;
-        let Notes = JSON.parse(note.getNotes());
-        let contentTitle, contentBody;
-        if ( String(Notes[id].status).includes(noteStatus[2]) || String(Notes[id].status).includes(noteStatus[1])) {
-            readonly = true;
-        }
-        for (let i of items) {
-            i.classList.remove('active')
-        }
-
-        if (rightPanel.isExist())
-            rightPanel.remove();
-        rightPanel.insert(document.querySelector('.left.panel'), insertPosition['ae'], readonly);
-
-        new event().rightPanelEvent()
-        contentTitle = document.querySelector('input');
-        contentBody = document.querySelector('textarea');
-        contentTitle.focus();
-        contentTitle.value = Notes[id].title ?? "";
-        contentBody.value = Notes[id].body ?? "";
-        data.classList.add('active')
-        return;
-
-
-
-
-    }
-    dblclick() {
-
-        let list = document.querySelector('.note-list');
-        list.classList.add('sel');
-        rightPanel.remove();
-        let row = document.querySelectorAll('.row');
-        let seq;
-        seq = [0, 1, 1, 0]
-        row.forEach((item, index) => {
-
-            if (seq[index]) {
-                item.classList.remove('hide');
-            }
-            else {
-                item.classList.add('hide');
-            }
-        });
-
     }
     deleteNote() {
         let del = document.querySelectorAll('.note-item.active');
@@ -459,6 +341,122 @@ export default class event {
             }
         });
         list.classList.remove('sel')
+    }
+
+
+    rightPanelEvent() {
+
+        document.querySelector('input').addEventListener('input', this.updateNote);
+        document.querySelector('textarea').addEventListener('input', this.updateNote);
+    }
+
+    updateNote() {
+
+        let item = document.querySelectorAll('.note-item');
+        item.forEach(i => {
+            if (i.classList.contains("active")) {
+
+                let contentTitle = document.querySelector('input');
+                let contentBody = document.querySelector('textarea');
+                let span1 = i.querySelector('span:nth-child(1)');
+                let span2 = i.querySelector('span:nth-child(2)');
+                let span3 = i.querySelector('span:nth-child(4)');
+                let time = new Date().toLocaleString();
+                let Notes = {
+                    "id": `${i.dataset.id}`,
+                    "title": `${contentTitle.value}`,
+                    "body": `${contentBody.value}`,
+                    "update": `${time}`,
+                    "status": noteStatus[0]
+                }
+                if (contentTitle.value == "") {
+
+
+                    span1.textContent = "Title"
+                }
+                else {
+
+                    span1.textContent = contentTitle.value;
+                }
+                span2.textContent = contentBody.value;
+                span3.textContent = time;
+                note.saveNotes(`${i.dataset.id}`, Notes);
+
+            }
+        })
+    }
+
+    itemEventReg() {
+        let notes = document.querySelectorAll('.note-item');
+
+
+        for (let i of notes) {
+
+            i.addEventListener('click', this.click);
+            i.data = i;
+            i.addEventListener('dblclick', this.dblclick);
+        }
+
+    }
+
+    click(data) {
+        data = data.currentTarget.data
+        let items = document.querySelectorAll('.note-item');
+        let list = document.querySelector('.note-list');
+
+        if (list.classList.contains('sel')) {
+            list = document.querySelector('.note-list');
+            data.classList.contains('active') ? data.classList.remove('active') : data.classList.add('active');
+            return;
+        }
+
+
+        let id = data.dataset.id;
+        let readonly = false;
+        let Notes = JSON.parse(note.getNotes());
+        let contentTitle, contentBody;
+        if ( String(Notes[id].status).includes(noteStatus[2]) || String(Notes[id].status).includes(noteStatus[1])) {
+            readonly = true;
+        }
+        for (let i of items) {
+            i.classList.remove('active')
+        }
+
+        if (rightPanel.isExist())
+            rightPanel.remove();
+        rightPanel.insert(document.querySelector('.left.panel'), insertPosition['ae'], readonly);
+
+        new event().rightPanelEvent()
+        contentTitle = document.querySelector('input');
+        contentBody = document.querySelector('textarea');
+        contentTitle.focus();
+        contentTitle.value = Notes[id].title ?? "";
+        contentBody.value = Notes[id].body ?? "";
+        data.classList.add('active')
+        return;
+
+
+
+
+    }
+    dblclick() {
+
+        let list = document.querySelector('.note-list');
+        list.classList.add('sel');
+        rightPanel.remove();
+        let row = document.querySelectorAll('.row');
+        let seq;
+        seq = [0, 1, 1, 0]
+        row.forEach((item, index) => {
+
+            if (seq[index]) {
+                item.classList.remove('hide');
+            }
+            else {
+                item.classList.add('hide');
+            }
+        });
+
     }
 
 }

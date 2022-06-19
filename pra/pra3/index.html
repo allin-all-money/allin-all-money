@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CBB108047 杜孟憲</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+
+  <div id="app">
+
+    <label>
+      <input type="checkbox" v-model="show">
+      Show Panel
+    </label>
+    <div class="control" :class="{hide: !show}">
+      <h3>Control Panel</h3>
+      價格設定與是否完售編輯：
+      <br /><br />
+
+      <label>
+        Base Price : <input type="text" v-model.number="basePrice">
+        Service Fee : <input type="text" v-model.number="serviceFee">%
+      </label>
+      <br /><br />
+      <div>
+
+        <label class="test" v-for="(drink,n) in cards" v-if="min<=drink.price+basePrice && max>=drink.price+basePrice&&drink.visible">
+          <div class="block">
+            <div class="row">
+              {{n}}<input type="checkbox" v-model="drink.soldOut">
+              {{drink.title}}
+            </div>
+            <div class="row">
+              <input class="price" type="text" v-model.number="drink.price">
+            </div>
+            
+          </div>
+
+        </label>
+
+
+      </div>
+    </div>
+
+    <div class="search">
+      <h3>Search</h3>
+      <label>
+        最小價格 : <input type="text" v-model="min">
+        最大價格 : <input type="text" v-model="max">
+        關鍵字 : <input type="text" v-model="keyword">
+      </label>
+    </div>
+
+    <div class="menu">
+      <div class="cards">
+        <div class="card" v-for="card in cards" v-if="min<=card.price+basePrice && max>=card.price+basePrice&&card.visible">
+          <img class="cover" :src="card.cover">
+          <div class="info">
+            <h3>{{card.title}}
+              <div class="soldOut" v-if="card.soldOut">已售完</div>
+            </h3>
+            <div class="price">{{card.price + basePrice}}$
+              <div class="other">(+{{ serviceFee}}%服務費)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- partial -->
+
+  <!--這邊同時用了Vue3 跟Vue2而老師您用Vue2的寫法-->
+  <!--這個不需要用到
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.33/vue.cjs.js'></script>
+  -->
+  <!--
+    Vue2跟Vue3之間的最明顯的差別在於2的instance不是用method來進行實作
+  -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
+  <script src="./script.js"></script>
+
+</body>
+
+</html>

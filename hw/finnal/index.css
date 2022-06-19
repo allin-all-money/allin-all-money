@@ -1,0 +1,386 @@
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+.purchase input {
+    outline: none;
+    border: none;
+    width: 2em;
+    background-color: rgb(156, 156, 156);
+}
+
+.purchase.mobile {
+    display: none;
+}
+
+html, body {
+    margin: 0px;
+    background-color: rgb(29, 29, 29);
+    font-family: 'cwTeXYen', sans-serif;
+}
+
+#movies {
+    overflow: hidden;
+}
+
+.title {
+    display: none;
+}
+
+.card {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    border-radius: 5px;
+    background-color: rgb(156, 156, 156);
+    transition: transform 0.5s;
+}
+
+.cards {
+    display: flex;
+    position: relative;
+    margin: auto;
+}
+
+.hotel_california {
+    display: block;
+    padding-top: 17vh;
+}
+
+.hotel_california p {
+    width: 20em;
+}
+
+.right {
+    padding-left: 10px;
+}
+
+.left {
+    position: relative;
+    overflow: hidden;
+    width: 11em;
+    transform: translateY(-10%);
+    transition: transform 0.5s;
+}
+
+.left>img {
+    width: 11em;
+}
+
+.card:hover {
+    transform: translateY(-5%);
+    transition: transform 0.5s;
+}
+
+.card:hover .left {
+    transform: translateY(-15%);
+    transition: transform 0.5s;
+}
+
+
+
+@media screen and (max-width: 912px) and (min-width: 769px) {
+    .purchase.mobile {
+        display: block;
+    }
+
+    .purchase.desktop {
+        display: none;
+    }
+
+    .left img {
+        width: 25em;
+    }
+
+    .right {
+        padding-left: 15px;
+        font-size: 1.5em;
+    }
+
+    .right p {
+        width: 15em;
+    }
+
+    .right h2 {
+        font-size: 2.7em;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 414px) {
+    .purchase.mobile {
+        display: block;
+    }
+
+    .purchase.desktop {
+        display: none;
+    }
+
+    .left img, .hotel_california p {
+        width: 16em;
+    }
+
+    .hotel_california .card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right h2 {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 414px) and (min-width: 376px) {
+    .purchase.mobile {
+        display: block;
+    }
+
+    .purchase.desktop {
+        display: none;
+    }
+
+    .title {
+        display: block;
+        font-size: 1.7em;
+    }
+
+    .hotel_california {
+        display: block;
+        padding-top: 15vh;
+    }
+
+    .left {
+        width: 16em;
+        padding: 5px;
+        transform: translateY(0%);
+        transition: transform 0.5s;
+
+    }
+
+    .left img {
+        width: 16em;
+    }
+
+    .right p {
+        width: 15.5em;
+    }
+
+    .hotel_california .card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right {
+
+        position: absolute;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    .right * {
+        padding: 2px 2px;
+        margin: 5px auto;
+    }
+
+    .right h2 {
+        display: none;
+    }
+
+    .card:hover {
+        transform: translateY(-0%);
+        transition: transform 0.5s;
+    }
+
+    .card:hover .left {
+        opacity: 0.15;
+        transform: translateY(-0px);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    .card:hover .right {
+        opacity: 1;
+        transition: opacity 1s;
+    }
+}
+
+@media screen and (max-width: 375px) and (min-width: 361px) {
+    .purchase.mobile {
+        display: block;
+    }
+
+    .purchase.desktop {
+        display: none;
+    }
+
+    .hotel_california {
+        display: block;
+        padding-top: 15vh;
+    }
+
+    .left {
+        width: 14em;
+        transform: translateY(0%);
+        transition: transform 0.5s;
+    }
+
+    .left img, .right p {
+        width: 14em;
+    }
+
+    .hotel_california .card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right {
+        padding: 3px;
+        position: absolute;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    .right * {
+        margin: 5px auto;
+    }
+
+    .right h2 {
+        font-size: 1.7em;
+
+    }
+
+    .card:hover {
+        transform: translateY(-0%);
+        transition: transform 0.5s;
+    }
+
+    .card:hover .left {
+        opacity: 0.15;
+        transform: translateY(-0px);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    .card:hover .right {
+        opacity: 1;
+        transition: opacity 1s;
+    }
+
+}
+
+.checkList {
+    position: absolute;
+    background-color: rgb(196, 196, 196);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0.3px 0.7px rgba(0, 0, 0, 0.126),
+        0 0.9px 1.7px rgba(0, 0, 0, 0.179), 0 1.8px 3.5px rgba(0, 0, 0, 0.224),
+        0 3.7px 7.3px rgba(0, 0, 0, 0.277), 0 10px 20px rgba(0, 0, 0, 0.4);
+    opacity: 0.85;
+    z-index: 10;
+    margin: 15vh 27vw;
+    height: 60vh;
+    width: 46vw;
+    border-radius: 10px;
+    transition: box-shadow 0.5s ease;
+}
+
+.checkList:hover {
+    box-shadow: 0 0.7px 1px rgba(0, 0, 0, 0.157),
+        0 1.7px 2.6px rgba(0, 0, 0, 0.224), 0 3.5px 5.3px rgba(0, 0, 0, 0.28),
+        0 7.3px 11px rgba(0, 0, 0, 0.346), 0 20px 30px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.5s ease;
+}
+.titleList{
+    display: flex;
+    padding-right: 30px;
+    justify-content: space-between;
+}
+.list{
+    overflow-y: scroll;
+    height: 50vh;
+}
+.listitem{
+    display: flex;
+    margin-bottom: 20px;
+    padding-right: 20px;
+    justify-content: space-between;
+    transition: 0.8s ease;
+    cursor: pointer;
+    
+}
+.listitem:hover{
+    opacity: 0.8;
+    background-color: rgba(240, 248, 255, 0.315);
+    transition: 0.8s ease;
+}
+.listitem .name{
+    margin-left: 50px;
+    align-self: center;
+}
+.listitem .number{
+    align-self: center;
+}
+@media screen and (max-width: 360px) {
+    .purchase.mobile {
+        display: block;
+    }
+
+    .purchase.desktop {
+        display: none;
+    }
+
+    .hotel_california {
+        display: block;
+        padding-top: 15vh;
+    }
+
+    .left {
+        width: 16em;
+        padding: 5px;
+        transform: translateY(0%);
+        transition: transform 0.5s;
+    }
+
+    .left img {
+        width: 16em;
+    }
+
+    .right p {
+        width: 15.5em;
+    }
+
+    .hotel_california .card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right {
+
+        position: absolute;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+    .right * {
+        padding: 2px 2px;
+        margin: 5px auto;
+    }
+
+    .right h2 {
+        font-size: 1.7em;
+    }
+
+    .card:hover {
+        transform: translateY(-0%);
+        transition: transform 0.5s;
+    }
+
+    .card:hover .left {
+        opacity: 0.15;
+        transform: translateY(-0px);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    .card:hover .right {
+        opacity: 1;
+        transition: opacity 1s;
+    }
+
+
+}

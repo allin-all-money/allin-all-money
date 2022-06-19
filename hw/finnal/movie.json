@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Hotel California",
+    "type": "紀錄片",
+    "cover": "https://www.vscinemas.com.tw/vsweb/upload/film/film_20220513023.jpg",
+    "description": "Welcome to the Hotel California Such a lovely place  Such a lovely face Plenty of room at the Hotel California Any time of year  You can find it here",
+    "price": 150,
+    "open": false,
+    "inventory":10
+  },
+  {
+    "name": "強尼戴普訴安伯赫德",
+    "type": "紀錄片",
+    "cover": "https://www.vscinemas.com.tw/vsweb/upload/film/film_20220419003.jpg",
+    "description": "世紀官司線上直播，強尼戴普是否能成功贏得官司翻轉家暴男星的形象?故事曲折離奇充滿轉折，原來安博才是一直以來家暴的那個?懂的人都懂。這裡面水很深立即購買以了解事情真相",
+    "price": 450,
+    "open": false,
+    "inventory":10
+  },
+  {
+    "name": "捍衛戰士：獨行俠",
+    "type": "動作、劇情",
+    "cover": "https://www.vscinemas.com.tw/vsweb/upload/film/film_20220419003.jpg",
+    "description": "故事敘述服役超過30年，身為海軍頂尖飛行員的「獨行俠」彼得米契爾上校 (湯姆克魯斯 飾) 仍舊堅守他的崗位，以試飛員的身份不斷突破飛行極限，也放棄任何足以終止飛行生涯的晉升...",
+    "price": 450,
+    "open": false,
+    "inventory":10
+  },
+  {
+    "name": "劇場版 咒術迴戰0",
+    "type": "動畫、奇幻/科幻",
+    "cover": "https://www.vscinemas.com.tw/vsweb/upload/film/film_20220124029.jpg",
+    "description": "自幼感情極好的乙骨憂太與祈本里香約好長大後要結婚，卻不料里香因死亡車禍化為強大怨靈依附在憂太身邊，為此所苦的憂太一心求死，之後在五條悟的帶領下進入咒術高專結識了新同學：禪院真希、狗卷棘與熊貓，他決定在這裡找到活下去的自信並解除里香的詛咒...",
+    "price": 180,
+    "open": false,
+    "inventory":10
+  },
+  {
+    "name": "媽的多重宇宙",
+    "type": "冒險、動作、劇情",
+    "cover": "https://www.vscinemas.com.tw/vsweb/upload/film/film_20220314001.jpg",
+    "description": "55歲的美國華裔移民秀蓮 (楊紫瓊 飾) 家庭事業兩崩潰。在老爸爸 (吳漢章 飾) 生日大壽這天，除了要阻止女兒 (史蒂芬妮許 飾) 暴走出櫃、替無用丈夫 (關繼威 飾) 擦屁股，還得去稅務局向古板大嬸解釋不太妙的稅務問題...",
+    "price": 250,
+    "open": false,
+    "inventory":10
+  },
+  {
+    "name": "費爾的旅程",
+    "type": "紀錄片",
+    "cover": "https://www.vscinemas.com.tw/vsweb/upload/film/film_20220513023.jpg",
+    "description": "人費爾先生 (Phil Tchernegovski) 帶著忐忑心情從南半球的紐西蘭來到北半球的臺灣尋找不知所蹤的心愛兒子。在過程中那種遍尋不著愛子的錐心之痛，卻在臺灣這個異鄉中，被溫暖人們的加油與鼓勵逐漸撫平。",
+    "price": 150,
+    "open": false,
+    "inventory":10
+  }
+]

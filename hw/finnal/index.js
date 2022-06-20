@@ -8,7 +8,7 @@ const movies2 = {
             total: 0,
             searchValue: "",
             show: false,
-            set:false,
+            set: false,
         }
     },
     async created() {
@@ -106,29 +106,32 @@ const movies2 = {
             return true
         },
         movieNum_input(movie) {
-            if(!movie.number) movie.number=1;
+            if (!movie.number) movie.number = 1;
             movie.number = parseInt(movie.number);
             if (movie.number > movie.inventory) {
                 movie.number = movie.inventory;
             }
-            if( movie.number <= 0){
-                movie.number = 1 ;
+            if (movie.number <= 0) {
+                movie.number = 1;
             }
-            for(let i of this.movies){
-                if(i.name == movie.name){
+            for (let i of this.movies) {
+                if (i.name == movie.name) {
                     i.number = movie.number;
                 }
             }
         },
-        setting(movie){
-            if(!movie.inventory) movie.inventory=1;
+        setting(movie) {
+            if (!movie.inventory) movie.inventory = 1;
             movie.inventory = parseInt(movie.inventory);
-            if( movie.inventory < 1 ){
-                movie.inventory = 1 ;
+            if (movie.inventory < 1) {
+                movie.inventory = 1;
             }
-            for(let i of this.list){
-                if(i.name == movie.name){
+            for (let i of this.list) {
+                if (i.name == movie.name) {
                     i.inventory = movie.inventory;
+                    if (i.number > i.inventory) { 
+                        i.number = i.inventory
+                    }
                 }
             }
 

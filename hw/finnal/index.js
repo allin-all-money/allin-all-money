@@ -3,7 +3,7 @@ const movies2 = {
         return {
             movies: [],
             list: [],
-            checkList: true,
+            checkList: false,
             checkout:false,
             total:0,
         }

@@ -35,7 +35,7 @@
                     <h3 class="name"> {{item.name}} </h3>
                     <button @click="deleteMv(item)">Delete</button>
                     <div style="display: flex; flex-direction: column; justify-content:center;">
-                        <input type="number" min="1" :max="item.inventory" class="number" v-model.number="item.number"
+                        <input type="number" min="1" :max="item.inventory" class="number" v-model.number="item.number" @input="movieNum_input(item)"
                             style="width:3em; border:none;outline:none;background-color:none;align-self:flex-end;">
                         <h3 v-if="item.number == item.inventory">已選購到庫存上限</h3>
                     </div>
@@ -93,7 +93,7 @@
                             <div class="purchase desktop">
                                 <label>
                                     <span>數量 : </span>
-                                    <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number">
+                                    <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number" @input="movieNum_input(movie)">
                                     <button @click="add2list(movie)">Purchase</button>
                                 </label>
                             </div>

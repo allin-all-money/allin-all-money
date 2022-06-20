@@ -53,7 +53,7 @@ const movies2 = {
 
             for (let i of this.list) {
                 if (movie.name == i.name) {
-                    i.number = parseInt(movie.number);
+                    i.number = parseInt(movie.number) == 1 ? ((parseInt(i.number) + 1) > parseInt(movie.inventory) ? parseInt(i.number) : parseInt(i.number) + 1) : parseInt(movie.number);
                     i.inventory = parseInt(movie.inventory);
                     i.cover = movie.cover;
                     i.price = parseInt(movie.price);
@@ -88,7 +88,7 @@ const movies2 = {
             cards.setAttribute("style", "left:0px;")
             console.log(search.value)
 
-            if (search.value==""){
+            if (search.value == "") {
                 this.show = false;
                 return false;
             }
@@ -97,12 +97,27 @@ const movies2 = {
                 if (i.name.includes(this.searchValue)) {
                     this.show = false
                     return false
-                
+
                 }
             }
-            
+
             this.show = true;
             return true
+        },
+        movieNum_input(movie) {
+            if(!movie.number) movie.number=1;
+            movie.number = parseInt(movie.number);
+            if (movie.number > movie.inventory) {
+                movie.number = movie.inventory;
+            }
+            if( movie.number <= 0){
+                movie.number = 1 ;
+            }
+            for(let i of this.movies){
+                if(i.name == movie.name){
+                    i.number = movie.number;
+                }
+            }
         },
 
 

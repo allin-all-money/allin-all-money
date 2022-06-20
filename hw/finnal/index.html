@@ -13,6 +13,19 @@
 <body>
 
     <div id="movies">
+
+
+        <i class="fa fa-cog fa-3x" aria-hidden="true" style="color: white; margin:10px 10px;cursor:pointer;" @click="set = !set"></i>
+        <div v-if="set" class="setting" style="padding: 50px;">
+            <div v-for="(movie, index) in movies" :key="index">
+                <div class="controler">
+                    <h2> {{movie.name}} </h2>
+                    <input type="number" min="1" v-model="movie.inventory" @input="setting(movie)">
+                </div>
+
+            </div>
+        </div>
+
         <div class="checkout" v-if="checkout">
             <h1 style="position: absolute;right:30px;cursor:pointer;" @click="()=>{this.checkout = false;}">X</h1>
             <h1>Check out</h1>
@@ -20,6 +33,7 @@
             <h1>Total : ${{total}} </h1>
 
         </div>
+        
         <div v-if="checkList" class="checkList" style="padding: 50px;">
             <h2 style="position:absolute;top:0px;right:25px;cursor:pointer;" @click="this.checkList = !this.checkList;">
                 X</h2>

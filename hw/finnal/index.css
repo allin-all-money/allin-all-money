@@ -41,7 +41,25 @@ html, body {
 .title {
     display: none;
 }
-
+.setting{
+    position: absolute;
+    padding: 10px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    background-color: rgb(196, 196, 196);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0.3px 0.7px rgba(0, 0, 0, 0.126),
+        0 0.9px 1.7px rgba(0, 0, 0, 0.179), 0 1.8px 3.5px rgba(0, 0, 0, 0.224),
+        0 3.7px 7.3px rgba(0, 0, 0, 0.277), 0 10px 20px rgba(0, 0, 0, 0.4);
+    opacity: 0.85;
+    width: 50vw;
+    height: 50vh;
+    z-index: 25;
+    margin-left: 1vw;
+}
+.controler{
+    display: flex;
+}
 .cardItem {
     padding: 20px;
     display: flex;
@@ -123,7 +141,7 @@ html, body {
         0 3.7px 7.3px rgba(0, 0, 0, 0.277), 0 10px 20px rgba(0, 0, 0, 0.4);
     opacity: 0.85;
     z-index: 10;
-    margin: 15vh 27vw;
+    margin: 5vh 27vw;
     height: 63vh;
     width: 46vw;
     border-radius: 10px;

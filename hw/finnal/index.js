@@ -8,6 +8,7 @@ const movies2 = {
             total: 0,
             searchValue: "",
             show: false,
+            set:false,
         }
     },
     async created() {
@@ -119,6 +120,19 @@ const movies2 = {
                 }
             }
         },
+        setting(movie){
+            if(!movie.inventory) movie.inventory=1;
+            movie.inventory = parseInt(movie.inventory);
+            if( movie.inventory < 1 ){
+                movie.inventory = 1 ;
+            }
+            for(let i of this.list){
+                if(i.name == movie.name){
+                    i.inventory = movie.inventory;
+                }
+            }
+
+        }
 
 
     },

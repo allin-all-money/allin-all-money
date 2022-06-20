@@ -135,6 +135,14 @@ const movies2 = {
                 }
             }
 
+        },
+        getNum(list){
+            let tmp = 0;
+            for(let i of list){
+                tmp += i.number;
+            }
+            return tmp;
+
         }
 
 

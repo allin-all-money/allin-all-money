@@ -33,7 +33,7 @@
             <h1>Total : ${{total}} </h1>
 
         </div>
-        
+
         <div v-if="checkList" class="checkList" style="padding: 50px;">
             <h2 style="position:absolute;top:0px;right:25px;cursor:pointer;" @click="this.checkList = !this.checkList;">
                 X</h2>
@@ -70,7 +70,7 @@
                 <input class="search" type="text" placeholder="Search" v-on:input="search()">
                 <i class="fa fa-shopping-cart fa-3x" @click="checkList=!checkList"
                     style="color: rgb(192, 192, 192); cursor: pointer;"></i>
-                <h3 style="cursor:default; margin-left:10px;color:aliceblue;width:2em;text-align:end;"> {{list.length}}
+                <h3 style="cursor:default; margin-left:10px;color:aliceblue;width:2em;text-align:end;"> {{getNum(list)}}
                 </h3>
             </div>
 

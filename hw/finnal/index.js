@@ -3,7 +3,9 @@ const movies2 = {
         return {
             movies: [],
             list: [],
-            checkList: false,
+            checkList: true,
+            checkout:false,
+            total:0,
         }
     },
     async created() {
@@ -71,10 +73,14 @@ const movies2 = {
             for (let i of this.list) {
                 tmp += i.price*i.number
             }
+            this.total = tmp;
             return tmp;
         },
         clearList(){
             this.list=[];
+        },
+        closeList(){
+            this.checkList = !this.checkList;
         }
 
     },

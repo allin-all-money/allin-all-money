@@ -13,7 +13,15 @@
 <body>
 
     <div id="movies">
+        <div class="checkout" v-if="checkout">
+            <h1 style="position: absolute;right:30px;cursor:pointer;" @click="()=>{this.checkout = false;}">X</h1>
+            <h1>Check out</h1>
+            <h4>You order {{list.length}} movies</h4>
+            <h1>Total : ${{total}} </h1>
+
+        </div>
         <div v-if="checkList" class="checkList" style="padding: 50px;">
+            <h2 style="position:absolute;top:0px;right:25px;cursor:pointer;"@click="closeList()">X</h2>
             <div class="titleList">
                 <h1>購物車</h1>
                 <h1>名稱</h1>
@@ -34,20 +42,24 @@
             </div>
             <div class="titleList">
                 <button class="btn" @click="clearList()">清空購物車</button>
-                <button class="btn">Check out</button>
+                <button class="btn" @click="()=>{this.checkout = true}" >Check out</button>
                 <h2></h2>
                 <h2>總金額</h2>
                 <h2 style="width: 5em;text-align:end"> {{getTotal()}} </h2>
             </div>
         </div>
+
+
         <div class="fixed-control" style="position: fixed; right:20px;top:20px;">
             <div style="display: flex; justify-items: space-between;" @click="checkList=!checkList">
                 <i class="fa fa-shopping-cart fa-3x" style="color: rgb(192, 192, 192); cursor: pointer;"></i>
-                <h3 v-if="list.length > 0" style="cursor:default; margin-left:10px;color:aliceblue"> {{list.length}}
+                <h3 style="cursor:default; margin-left:10px;color:aliceblue;width:2em;text-align:end;"> {{list.length}}
                 </h3>
             </div>
 
         </div>
+
+
         <div class="hotel_california" @wheel.prevent="wheel($event)">
             <div class="cards" style="left: 10px">
 

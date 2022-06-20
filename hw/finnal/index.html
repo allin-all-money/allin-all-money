@@ -66,8 +66,8 @@
         <div class="hotel_california" @wheel.prevent="wheel($event)">
             <div class="cards" style="left: 10px">
 
+                <h1 v-show="show" style="color: white;">無此影片</h1>
                 <div class="card"  v-for="(movie,index) in movies" :key="index">
-                    <h1 v-if="!movie.name.includes(searchValue) && index==0" style="color: white; margin-left:48vw;">無此影片</h1>
                     <div class="cardItem" v-if="movie.name.includes(searchValue) || searchValue==''">
 
                         <div class="left">

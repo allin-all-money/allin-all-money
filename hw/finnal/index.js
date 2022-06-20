@@ -4,9 +4,10 @@ const movies2 = {
             movies: [],
             list: [],
             checkList: false,
-            checkout:false,
-            total:0,
-            searchValue:"",
+            checkout: false,
+            total: 0,
+            searchValue: "",
+            show: false,
         }
     },
     async created() {
@@ -70,22 +71,38 @@ const movies2 = {
             }
         },
         getTotal() {
-            let tmp =0;
+            let tmp = 0;
             for (let i of this.list) {
-                tmp += i.price*i.number
+                tmp += i.price * i.number
             }
             this.total = tmp;
             return tmp;
         },
-        clearList(){
-            this.list=[];
+        clearList() {
+            this.list = [];
         },
-        search(){
+        search() {
             let search = document.querySelector('.search');
             this.searchValue = search.value;
             let cards = document.querySelector('.cards');
-            cards.setAttribute("style","left:0px;")
+            cards.setAttribute("style", "left:0px;")
             console.log(search.value)
+
+            if (search.value==""){
+                this.show = false;
+                return false;
+            }
+
+            for (let i of this.movies) {
+                if (i.name.includes(this.searchValue)) {
+                    this.show = false
+                    return false
+                
+                }
+            }
+            
+            this.show = true;
+            return true
         },
 
 

@@ -21,7 +21,8 @@
 
         </div>
         <div v-if="checkList" class="checkList" style="padding: 50px;">
-            <h2 style="position:absolute;top:0px;right:25px;cursor:pointer;"@click="closeList()">X</h2>
+            <h2 style="position:absolute;top:0px;right:25px;cursor:pointer;" @click="this.checkList = !this.checkList;">
+                X</h2>
             <div class="titleList">
                 <h1>購物車</h1>
                 <h1>名稱</h1>
@@ -35,14 +36,14 @@
                     <button @click="deleteMv(item)">Delete</button>
                     <div style="display: flex; flex-direction: column; justify-content:center;">
                         <input type="number" min="1" :max="item.inventory" class="number" v-model.number="item.number"
-                        style="width:3em; border:none;outline:none;background-color:none;align-self:flex-end;">
-                        <h3  v-if="item.number == item.inventory">已選購到庫存上限</h3>
+                            style="width:3em; border:none;outline:none;background-color:none;align-self:flex-end;">
+                        <h3 v-if="item.number == item.inventory">已選購到庫存上限</h3>
                     </div>
                 </div>
             </div>
             <div class="titleList">
                 <button class="btn" @click="clearList()">清空購物車</button>
-                <button class="btn" @click="()=>{this.checkout = true}" >Check out</button>
+                <button class="btn" @click="()=>{this.checkout = true}">Check out</button>
                 <h2></h2>
                 <h2>總金額</h2>
                 <h2 style="width: 5em;text-align:end"> {{getTotal()}} </h2>
@@ -51,8 +52,10 @@
 
 
         <div class="fixed-control" style="position: fixed; right:20px;top:20px;">
-            <div style="display: flex; justify-items: space-between;" @click="checkList=!checkList">
-                <i class="fa fa-shopping-cart fa-3x" style="color: rgb(192, 192, 192); cursor: pointer;"></i>
+            <div style="display: flex; justify-items: space-between;">
+                <input class="search" type="text" placeholder="Search" v-on:input="search()">
+                <i class="fa fa-shopping-cart fa-3x" @click="checkList=!checkList"
+                    style="color: rgb(192, 192, 192); cursor: pointer;"></i>
                 <h3 style="cursor:default; margin-left:10px;color:aliceblue;width:2em;text-align:end;"> {{list.length}}
                 </h3>
             </div>
@@ -63,35 +66,39 @@
         <div class="hotel_california" @wheel.prevent="wheel($event)">
             <div class="cards" style="left: 10px">
 
-                <div class="card" v-for="movie in movies">
+                <div class="card"  v-for="(movie,index) in movies" :key="index">
+                    <h1 v-if="!movie.name.includes(searchValue) && index==0" style="color: white; margin-left:48vw;">無此影片</h1>
+                    <div class="cardItem" v-if="movie.name.includes(searchValue) || searchValue==''">
 
-                    <div class="left">
-                        <img :src="movie.cover">
-                        <h2 class="title">{{movie.name}}</h2>
-                        <div class="purchase mobile">
-                            <label>
-                                <span>數量 : </span>
-                                <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number">
-                                <button @click="add2list(movie)">Purchase</button>
-                            </label>
+                        <div class="left">
+                            <img :src="movie.cover">
+                            <h2 class="title">{{movie.name}}</h2>
+                            <div class="purchase mobile">
+                                <label>
+                                    <span>數量 : </span>
+                                    <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number">
+                                    <button @click="add2list(movie)">Purchase</button>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="right">
-                        <div style="display:flex; justify-content: space-between;">
-                            <h2> {{movie.name}} </h2>
-                            <h2 style="color: rgb(43, 43, 43);"> ${{movie.price}} </h2>
-                        </div>
-                        <h4> {{movie.type}} </h4>
+                        <div class="right">
+                            <div style="display:flex; justify-content: space-between;">
+                                <h2> {{movie.name}} </h2>
+                                <h2 style="color: rgb(43, 43, 43);"> ${{movie.price}} </h2>
+                            </div>
+                            <h4> {{movie.type}} </h4>
 
-                        <p v-html="movie.description"></p>
+                            <p v-html="movie.description"></p>
 
-                        <div class="purchase desktop">
-                            <label>
-                                <span>數量 : </span>
-                                <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number">
-                                <button @click="add2list(movie)">Purchase</button>
-                            </label>
+                            <div class="purchase desktop">
+                                <label>
+                                    <span>數量 : </span>
+                                    <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number">
+                                    <button @click="add2list(movie)">Purchase</button>
+                                </label>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>

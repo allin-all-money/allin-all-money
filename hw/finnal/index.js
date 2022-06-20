@@ -6,6 +6,7 @@ const movies2 = {
             checkList: false,
             checkout:false,
             total:0,
+            searchValue:"",
         }
     },
     async created() {
@@ -29,7 +30,7 @@ const movies2 = {
             else {
 
                 TweenMax.to(".cards", 1, {
-                    left: "+=" + evt.deltaY * 2 + "px"
+                    left: "+=" + evt.deltaY * 3 + "px"
                 })
             }
 
@@ -79,9 +80,14 @@ const movies2 = {
         clearList(){
             this.list=[];
         },
-        closeList(){
-            this.checkList = !this.checkList;
-        }
+        search(){
+            let search = document.querySelector('.search');
+            this.searchValue = search.value;
+            let cards = document.querySelector('.cards');
+            cards.setAttribute("style","left:0px;")
+            console.log(search.value)
+        },
+
 
     },
 

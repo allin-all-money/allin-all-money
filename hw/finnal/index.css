@@ -8,6 +8,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 1em;
     transition: background 0.5s ease ;
 }
 .btn:hover{
@@ -41,7 +42,7 @@ html, body {
     display: none;
 }
 
-.card {
+.cardItem {
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -55,6 +56,7 @@ html, body {
     display: flex;
     position: relative;
     margin: auto;
+
 }
 
 .hotel_california {
@@ -83,12 +85,12 @@ html, body {
     width: 11em;
 }
 
-.card:hover {
+.cardItem:hover {
     transform: translateY(-5%);
     transition: transform 0.5s;
 }
 
-.card:hover .left {
+.cardItem:hover .left {
     transform: translateY(-15%);
     transition: transform 0.5s;
 }
@@ -167,7 +169,15 @@ html, body {
 .listitem button{
     align-self: center;
 }
-
+.search{
+    font-size: 1.5em;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid white;
+    color: aliceblue;
+    background-color: rgb(29, 29, 29);
+}
 
 @media screen and (max-width: 912px) and (min-width: 769px) {
     .purchase.mobile {

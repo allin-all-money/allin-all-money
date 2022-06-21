@@ -129,22 +129,43 @@ const movies2 = {
             for (let i of this.list) {
                 if (i.name == movie.name) {
                     i.inventory = movie.inventory;
-                    if (i.number > i.inventory) { 
+                    if (i.number > i.inventory) {
                         i.number = i.inventory
                     }
                 }
             }
 
         },
-        getNum(list){
+        getNum(list) {
             let tmp = 0;
-            for(let i of list){
+            for (let i of list) {
                 tmp += i.number;
             }
             return tmp;
 
-        }
+        },
+        up(movie) {
+            if (parseInt(movie.number) < parseInt(movie.inventory)) {
+                movie.number = parseInt(movie.number) + 1;
+            }
+        },
+        down(movie) {
+            if (parseInt(movie.number) > 1) {
+                movie.number = parseInt(movie.number) - 1;
+            }
 
+        },
+        upInventory(movie) {
+
+            movie.inventory = parseInt(movie.inventory) + 1;
+
+        },
+        downInventory(movie) {
+            if (parseInt(movie.inventory) > 1) {
+                movie.inventory = parseInt(movie.inventory) - 1;
+            }
+
+        }
 
     },
 

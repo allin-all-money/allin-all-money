@@ -20,7 +20,12 @@
             <div v-for="(movie, index) in movies" :key="index">
                 <div class="controler">
                     <h2> {{movie.name}} </h2>
-                    <input type="number" min="1" v-model="movie.inventory" @input="setting(movie)">
+                    <div class="setNum">
+                        <span @click="upInventory(movie)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        <input type="number" min="1" v-model="movie.inventory" @input="setting(movie)">
+                        <span @click="downInventory(movie)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                    </div>
+                    
                 </div>
 
             </div>
@@ -46,12 +51,20 @@
             <div class="list">
                 <div class="listitem" v-for="item in list">
                     <img :src="item.cover" style="width: 100px;">
-                    <h3 class="name"> {{item.name}} </h3>
+                    <div class="test">
+                        
+                        <h3 class="name">{{item.name}}<span v-if="item.number == item.inventory">(已選購到庫存上限)</span> </h3>
+                        
+                    </div>
                     <button @click="deleteMv(item)">Delete</button>
+                    
                     <div style="display: flex; flex-direction: column; justify-content:center;">
-                        <input type="number" min="1" :max="item.inventory" class="number" v-model.number="item.number" @input="movieNum_input(item)"
-                            style="width:3em; border:none;outline:none;background-color:none;align-self:flex-end;">
-                        <h3 v-if="item.number == item.inventory">已選購到庫存上限</h3>
+                        
+                        <div class="setNum">
+                            <span @click="up(item)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            <input type="number" min="1" :max="item.inventory" v-model.number="item.number" @input="movieNum_input(item)">
+                            <span @click="down(item)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,9 +101,13 @@
                             <img :src="movie.cover">
                             <h2 class="title">{{movie.name}}</h2>
                             <div class="purchase mobile">
-                                <label>
+                                <label >
                                     <span>數量 : </span>
-                                    <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number">
+                                    <div class="setNum">
+                                        <span @click="up(movie)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                        <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number" @input="movieNum_input(movie)">
+                                        <span @click="down(movie)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                    </div>
                                     <button @click="add2list(movie)">Purchase</button>
                                 </label>
                             </div>
@@ -105,9 +122,13 @@
                             <p v-html="movie.description"></p>
 
                             <div class="purchase desktop">
-                                <label>
+                                <label >
                                     <span>數量 : </span>
-                                    <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number" @input="movieNum_input(movie)">
+                                    <div class="setNum">
+                                        <span @click="up(movie)"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                        <input type="number" min="1" :max="movie.inventory" v-model.number="movie.number" @input="movieNum_input(movie)">
+                                        <span @click="down(movie)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                    </div>
                                     <button @click="add2list(movie)">Purchase</button>
                                 </label>
                             </div>

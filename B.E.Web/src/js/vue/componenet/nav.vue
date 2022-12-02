@@ -99,11 +99,9 @@ export default {
     box-shadow: none;
 }
 .img{
-    height:53px;
-    min-width:fit-content;
+    width:5.25em;
     object-fit: cover;
 }
- 
 
 </style>
 
@@ -111,9 +109,9 @@ export default {
 
 
     <nav class="navbar navbar-expand-xs bg-light" :class="{ 'fixed-top' : distance > 10 }">
-        <div class="container">
+        <div class="container-md">
             <a class="navbar-brand" href="/">
-                <img src="./img/ss.svg" class="img"/>
+                <img src="./img/logo.png" class="img"/>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

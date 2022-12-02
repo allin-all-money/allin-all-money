@@ -11,9 +11,9 @@ export default {
         cart
     },
     created() {
-        for (let i = 0; i < list.length - 1; i += 3) {
+        for (let i = 0; i < list.length - 2; i += 4) {
             let temp = [];
-            for (let j = 0; j < 3; j++) {
+            for (let j = 0; j < 4; j++) {
                 temp.push(list[i + j]);
             }
             this.image.push(temp);
@@ -54,6 +54,7 @@ export default {
 }
 
 .cusCard {
+    margin-bottom:20px;
     padding: 20px;
     height: fit-content;
     border: 1px solid rgb(182, 182, 182);
@@ -79,9 +80,9 @@ export default {
 
 <template>
     <div class="content">
-        <div class="container" v-lazy-container="{ selector: 'img' }">
+        <div class="container-lg" v-lazy-container="{ selector: 'img' }">
             <div class="row" v-for=" row in image">
-                <div class="col-4 showIMG" v-for="data in row">
+                <div class="col-6 col-lg-3 showIMG" v-for="data in row">
                     <div class="cusCard">
                         <div class="fixCube">
                             <img class="card-img-top" :data-src="data.url" alt="Card image cap">

@@ -1,0 +1,29 @@
+{
+  "name": "b.e.web",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build --dist-dir public",
+    "deploy":"parcel build --dist-dir public && gh-pages -d public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.2",
+    "gh-pages": "^4.0.0",
+    "parcel": "^2.8.0",
+    "pinia": "^2.0.27",
+    "vue": "^3.2.45",
+    "vue-lazyload": "^3.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.0",
+    "@parcel/transformer-vue": "^2.8.0"
+  }
+}

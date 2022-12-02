@@ -74,7 +74,13 @@ export default {
     height: 6em;
     justify-content: space-between;
 
-    .card-title {}
+    .row{
+        height: 4em;
+    }
+}
+.btn{
+
+    float: right;
 }
 </style>
 
@@ -92,9 +98,7 @@ export default {
                                 <h5 class="col-9 card-title">{{ data.title }}</h5>
                                 <p class="col-3 card-text" style="text-align: end;">{{ data.price }}</p>
                             </div>
-                            <div class="row">
-                                <button style="" class="btn btn-light">Just Buy it</button>
-                            </div>
+                            <button class="btn btn-light">Just Buy it</button>
                         </div>
                     </div>
                 </div>

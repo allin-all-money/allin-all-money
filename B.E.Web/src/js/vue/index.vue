@@ -1,23 +1,30 @@
 <template>
-    <navbar ></navbar>
-    <bodyContent></bodyContent>
-    <customFooter></customFooter>
+    <RouterView></RouterView>
 </template>
   
 <script>
-import navbar from './componenet/nav.vue';
-import customFooter from './componenet/footer.vue';
-import bodyContent from './componenet/bodyContent.vue';
+import { RouterView } from 'vue-router';
+import indexPage from './page/index.page.vue'
+import ad from './page/ad.vue'
 export default {
-    data() {
-        return {
-            isMenuClick: false,
-        }
+
+    components: {
+        indexPage,
+        ad
     },
-    components:{
-        navbar,
-        customFooter,
-        bodyContent,
+    created() {
+        
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    methods: {
+        handleScroll(event) {
+            distance = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            if (distance > 6000) {
+                console.log("Hi");
+                location.href='/ad';
+            }
+        }
     }
+
 };
 </script>

@@ -1,8 +1,11 @@
 {
   "name": "b.e.web",
   "version": "1.0.0",
-  "description": "",
   "source": "src/index.html",
+  "staticFiles": {
+    "staticPath": "static",
+    "outDirPatern": "public"
+  },
   "scripts": {
     "start": "parcel",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,10 +24,13 @@
     "parcel": "^2.8.0",
     "pinia": "^2.0.27",
     "vue": "^3.2.45",
-    "vue-lazyload": "^3.0.0-rc.2"
+    "vue-lazyload": "^3.0.0-rc.2",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.0",
-    "@parcel/transformer-vue": "^2.8.0"
-  }
+    "@parcel/transformer-vue": "^2.8.0",
+    "parcel-reporter-static-files-copy": "^1.4.0"
+  },
+  "description": ""
 }

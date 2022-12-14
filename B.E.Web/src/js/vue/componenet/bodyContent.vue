@@ -18,7 +18,7 @@ export default {
             }
             this.image.push(temp);
         }
-        console.log(this.image[this.image.length - 1])
+        console.log("Body loaded")
     }
 }
 </script>
